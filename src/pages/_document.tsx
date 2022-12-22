@@ -8,23 +8,23 @@ const Document = () => {
       <Head>
         <meta charSet="utf-8" />
         <meta name="robots" content="all" />
-        <link rel="shortcut icon" href="/favicons/favicon.ico" />
+        <link rel="shortcut icon" href="/logos/logo.ico" />
         <link
           rel="apple-touch-icon"
           sizes="180x180"
-          href="/favicons/favicon_180.png"
+          href="/logos/logo_180.png"
         />
         <link
           rel="icon"
           type="image/png"
           sizes="32x32"
-          href="/favicons/favicon_32.png"
+          href="/logos/logo_32.png"
         />
         <link
           rel="icon"
           type="image/png"
           sizes="16x16"
-          href="/favicons/favicon_16.png"
+          href="/logos/logo_16.png"
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link

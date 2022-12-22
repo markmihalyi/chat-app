@@ -1,3 +1,4 @@
+import Loading from "../../components/Loading";
 import React from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
@@ -18,7 +19,7 @@ const NotAuthGuard: React.FC<{ children: React.ReactNode }> = ({
     return <>{children}</>;
   }
 
-  return null;
+  return <Loading />;
 };
 
 export default NotAuthGuard;

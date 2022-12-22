@@ -2,14 +2,14 @@ import DashboardLayout from "../components/DashboardLayout";
 import type { NextApplicationPage } from "./_app";
 import React from "react";
 
-const Home: NextApplicationPage = () => {
-  return <p>Home</p>;
+const Profile: NextApplicationPage = () => {
+  return <div>Profile</div>;
 };
 
-Home.getLayout = (page) => {
+Profile.getLayout = (page) => {
   return <DashboardLayout page={page} />;
 };
 
-Home.requireAuth = true;
+Profile.requireAuth = true;
 
-export default Home;
+export default Profile;
