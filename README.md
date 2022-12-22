@@ -5,7 +5,7 @@
   <h1>Chat App</h1>
   
   <p>
-    💬 A real-time chat application made with Next.js, implementing Socket.io.
+    A real-time chat application made with Next.js, implementing Socket.io.
   </p>
   
   
