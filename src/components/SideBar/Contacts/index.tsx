@@ -1,6 +1,6 @@
-import Contact from './Contact';
-import React from 'react';
-import SearchBar from '../SearchBar';
+import Contact from "./Contact";
+import React from "react";
+import SearchBar from "../SearchBar";
 
 export type Contact = {
   username: string;
@@ -12,23 +12,24 @@ export type Contact = {
 const Contacts: React.FC = () => {
   const [contacts, setContacts] = React.useState<Array<Contact>>([
     {
-      username: 'floyd',
-      name: 'Floyd Flores',
+      username: "floyd",
+      name: "Floyd Flores",
       lastMessage:
-        'Hey, how are you doing? I am asking you this because I am bored and I have nothing to do.',
-      lastMessageTime: '12:33 AM',
+        "Hey, how are you doing? I am asking you this because I am bored and I have nothing to do.",
+      lastMessageTime: "12:33 AM",
     },
     {
-      username: 'joseph',
-      name: 'Joseph Flores',
-      lastMessage: 'Ok, bye.',
-      lastMessageTime: '5:12 AM',
+      username: "joseph",
+      name: "Joseph Flores",
+      lastMessage: "Ok, bye.",
+      lastMessageTime: "5:12 AM",
     },
   ]);
 
-  const [filteredContacts, setFilteredContacts] = React.useState<Array<Contact> | null>(null);
+  const [filteredContacts, setFilteredContacts] =
+    React.useState<Array<Contact> | null>(null);
 
-  const [selectedContact, setSelectedContact] = React.useState<string>('');
+  const [selectedContact, setSelectedContact] = React.useState<string>("");
 
   return (
     <div className="flex h-full flex-col">

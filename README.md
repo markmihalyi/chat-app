@@ -2,7 +2,7 @@
 
   <img src="public/logos/logo.png" alt="logo" width="auto" height="70" />
 
-  <h1 style="margin-top: 0px">Chat App</h1>
+  <h1 style="margin-top: 0px!important">Chat App</h1>
   
   <p>
     💬 A real-time chat application made with Next.js, implementing Socket.io.

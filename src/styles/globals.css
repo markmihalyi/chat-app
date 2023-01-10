@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html {
-  @apply h-screen w-screen bg-gradient-to-r from-[#56CCF2] to-[#2F80ED] font-jakarta text-primary;
+  @apply h-screen w-screen bg-gradient-to-r from-[#56CCF2] to-[#2F80ED] font-jakarta text-primary outline-none;
 }
 
 input:checked + div {
