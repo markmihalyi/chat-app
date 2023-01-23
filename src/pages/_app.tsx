@@ -3,14 +3,13 @@ import "../styles/globals.css";
 import type { ComponentType, ReactElement, ReactNode } from "react";
 
 import type { AppProps } from "next/app";
-import AuthGuard from "../common/utils/AuthGuard";
 import Head from "next/head";
 import type { NextPage } from "next";
-import NotAuthGuard from "../common/utils/NotAuthGuard";
 import React from "react";
 import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { SocketContextProvider } from "../common/providers/SocketProvider";
+import { api } from "../utils/api";
 
 export type NextApplicationPage<P = unknown, IP = P> = NextPage<P, IP> & {
   // Auth
@@ -42,21 +41,11 @@ const ChatApp = (props: AppProps) => {
       </Head>
       <SessionProvider session={session}>
         <SocketContextProvider>
-          <Layout>
-            {Component.requireAuth ? (
-              <AuthGuard>{getLayout(<Component {...pageProps} />)}</AuthGuard>
-            ) : Component.requireNotAuth ? (
-              <NotAuthGuard>
-                {getLayout(<Component {...pageProps} />)}
-              </NotAuthGuard>
-            ) : (
-              getLayout(<Component {...pageProps} />)
-            )}
-          </Layout>
+          <Layout>{getLayout(<Component {...pageProps} />)}</Layout>
         </SocketContextProvider>
       </SessionProvider>
     </>
   );
 };
 
-export default ChatApp;
+export default api.withTRPC(ChatApp);

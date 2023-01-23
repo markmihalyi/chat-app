@@ -3,13 +3,12 @@ import { getProviders, signIn } from "next-auth/react";
 
 import type { BuiltInProviderType } from "next-auth/providers";
 import type { NextApplicationPage } from "../_app";
+import type { NextPageContext } from "next";
 import React from "react";
+import { getSession } from "next-auth/react";
 
 type SignInProps = {
-  providers: Record<
-    LiteralUnion<BuiltInProviderType, string>,
-    ClientSafeProvider
-  >;
+  providers: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider>;
 };
 
 const SignIn: NextApplicationPage<SignInProps> = ({ providers }) => {
@@ -23,7 +22,7 @@ const SignIn: NextApplicationPage<SignInProps> = ({ providers }) => {
               You need to sign in to use the application.
             </span>
           </div>
-          <div className="mt-4 mt-6 flex flex-col">
+          <div className="mt-4 flex flex-col">
             <div className="flex flex-col">
               {Object.values(providers).map((provider) => (
                 <button
@@ -42,13 +41,22 @@ const SignIn: NextApplicationPage<SignInProps> = ({ providers }) => {
   );
 };
 
-SignIn.requireNotAuth = true;
+export async function getServerSideProps(context: NextPageContext) {
+  const session = await getSession(context);
 
-export default SignIn;
+  if (session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
 
-export async function getServerSideProps() {
   const providers = await getProviders();
   return {
     props: { providers },
   };
 }
+
+export default SignIn;
