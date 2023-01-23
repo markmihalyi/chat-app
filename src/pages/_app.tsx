@@ -12,10 +12,6 @@ import { SocketContextProvider } from "../common/providers/SocketProvider";
 import { api } from "../utils/api";
 
 export type NextApplicationPage<P = unknown, IP = P> = NextPage<P, IP> & {
-  // Auth
-  requireAuth?: boolean;
-  requireNotAuth?: boolean;
-  // Layout
   getLayout?: (page: ReactElement) => ReactNode;
   layout?: ComponentType;
 };
