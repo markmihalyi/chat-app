@@ -57,7 +57,7 @@ const UserMenu: React.FC<Props> = ({ setShowSettingsMenu }) => {
     <Menu as="div" className="flex h-14 w-10 items-center justify-center">
       <Menu.Button>
         <Image
-          className="w-9 cursor-pointer rounded-full p-1 hover:bg-light-1 active:bg-light-2"
+          className="w-9 cursor-pointer rounded-full p-1 transition hover:bg-light-1 active:bg-light-2"
           src="/icons/navbar/DotsThreeVertical.svg"
           alt="Settings"
           width={24}
@@ -80,10 +80,7 @@ const UserMenu: React.FC<Props> = ({ setShowSettingsMenu }) => {
               "drop-shadow(0px 0px 4px rgba(2, 17, 37, 0.08)) drop-shadow(0px 2px 8px rgba(2, 17, 37, 0.08)) drop-shadow(0px 6px 16px rgba(2, 17, 37, 0.04))",
           }}
         >
-          <Menu.Item
-            as="div"
-            className="flex items-center border-b-[1px] border-divider p-3"
-          >
+          <Menu.Item as="div" className="flex items-center border-b-[1px] border-divider p-3">
             <div className="relative">
               <Image
                 className="rounded-full"
@@ -100,10 +97,7 @@ const UserMenu: React.FC<Props> = ({ setShowSettingsMenu }) => {
 
             <div className="ml-3 flex flex-col">
               <span className="text-sm font-semibold">{data?.user?.name}</span>
-              <span className="text-xs text-secondary">
-                Full-Stack Engineer
-                {/* TODO: Bio */}
-              </span>
+              <span className="text-xs text-secondary">{data?.user?.bio}</span>
             </div>
           </Menu.Item>
           {MenuItems.map((item, index) => (

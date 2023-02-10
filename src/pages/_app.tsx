@@ -9,7 +9,6 @@ import React from "react";
 import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { SocketContextProvider } from "../common/providers/SocketProvider";
-import { api } from "../utils/api";
 
 export type NextApplicationPage<P = unknown, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -44,4 +43,4 @@ const ChatApp = (props: AppProps) => {
   );
 };
 
-export default api.withTRPC(ChatApp);
+export default ChatApp;

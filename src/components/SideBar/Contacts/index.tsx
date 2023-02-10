@@ -1,59 +1,141 @@
-import Contact from "./Contact";
+import CardSkeleton from "./CardSkeleton";
+import ContactCard from "./ContactCard";
+import Loading from "./Loading";
 import React from "react";
-import SearchBar from "../SearchBar";
+import type { ReactNode } from "react";
+import RequestsButton from "./Requests/RequestsButton";
+import SearchBar from "./SearchBar";
+import UserCard from "./UserCard";
+import axios from "axios";
+import { useSession } from "next-auth/react";
 
 export type Contact = {
-  username: string;
+  id: string;
   name: string;
-  lastMessage: string;
-  lastMessageTime: string;
+  image: string;
+  bio?: string;
+  alreadySentRequest: boolean;
 };
 
 const Contacts: React.FC = () => {
-  const [contacts, setContacts] = React.useState<Array<Contact>>([
-    {
-      username: "floyd",
-      name: "Floyd Flores",
-      lastMessage:
-        "Hey, how are you doing? I am asking you this because I am bored and I have nothing to do.",
-      lastMessageTime: "12:33 AM",
-    },
-    {
-      username: "joseph",
-      name: "Joseph Flores",
-      lastMessage: "Ok, bye.",
-      lastMessageTime: "5:12 AM",
-    },
-  ]);
+  const [rows, setRows] = React.useState<Array<ReactNode>>([]);
 
-  const [filteredContacts, setFilteredContacts] =
-    React.useState<Array<Contact> | null>(null);
+  const { data } = useSession();
+
+  React.useEffect(() => {
+    if (data) {
+      const contactCount = data.user?.contactCount || 0;
+      const rows: Array<ReactNode> = [];
+      for (let i = 0; i < contactCount; i++) {
+        rows.push(<CardSkeleton />);
+      }
+      setRows(rows);
+    }
+  }, [data]);
+
+  const [contacts, setContacts] = React.useState<Array<Contact> | null>([]);
+
+  const [loading, setLoading] = React.useState<boolean>(true);
+  const [searching, setSearching] = React.useState<boolean>(false);
+
+  const updateContacts = async () => {
+    setLoading(true);
+    const res = await axios.get("/api/v1/contacts/list");
+    const data: Array<Contact> = res.data;
+
+    const contactCount = data.length;
+    const rows: Array<ReactNode> = [];
+    for (let i = 0; i < contactCount; i++) {
+      rows.push(<CardSkeleton />);
+    }
+    setRows(rows);
+
+    setContacts(data);
+    setLoading(false);
+  };
+
+  React.useEffect(() => {
+    if (contacts === null) {
+      updateContacts();
+    }
+  }, [contacts]);
+
+  const [filteredUsers, setFilteredUsers] = React.useState<Array<Contact> | null>(null);
+  const [filteredContacts, setFilteredContacts] = React.useState<Array<Contact> | null>(null);
 
   const [selectedContact, setSelectedContact] = React.useState<string>("");
 
   return (
-    <div className="flex h-full flex-col">
-      <SearchBar setFilteredContacts={setFilteredContacts} />
+    <div className="flex select-none flex-col 2xl:h-[844px]">
+      <div className="flex items-center justify-between border-light-2 py-3 px-4">
+        <SearchBar
+          setSearching={setSearching}
+          setContacts={setContacts}
+          setFilteredUsers={setFilteredUsers}
+          setFilteredContacts={setFilteredContacts}
+        />
+        <RequestsButton updateContacts={updateContacts} />
+      </div>
+      {!loading ? (
+        <div className="flex flex-col overflow-hidden">
+          {filteredUsers !== null || filteredContacts !== null ? (
+            <>
+              {filteredUsers?.length === 0 && filteredContacts?.length === 0 ? (
+                <div className="flex items-center justify-center py-6">
+                  <h3 className="select-none text-secondary">No results.</h3>
+                </div>
+              ) : (
+                <>
+                  <h3 className="ml-6 mt-2 select-none font-semibold">Others</h3>
+                  {filteredUsers && filteredUsers?.length > 0 ? (
+                    <div className="flex min-h-[72px] flex-col overflow-y-auto">
+                      {filteredUsers?.map((contact) => (
+                        <UserCard key={contact.id} contact={contact} />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center">
+                      <h3 className="select-none text-sm text-secondary">No results.</h3>
+                    </div>
+                  )}
 
-      <div className="flex flex-col overflow-y-auto">
-        {filteredContacts !== null
-          ? filteredContacts.map((contact) => (
-              <Contact
-                key={contact.username}
-                selected={selectedContact === contact.username}
+                  <hr className="mt-4 text-light-2" />
+                  <h3 className="ml-6 mt-2 select-none font-semibold">Contacts</h3>
+                  {filteredContacts && filteredContacts?.length > 0 ? (
+                    <div className="flex min-h-[72px] flex-col overflow-y-auto">
+                      {filteredContacts?.map((contact) => (
+                        <ContactCard
+                          key={contact.id}
+                          contact={contact}
+                          selected={selectedContact === contact.id}
+                          setSelectedContact={setSelectedContact}
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center">
+                      <h3 className="mt-2 select-none text-sm text-secondary">No results.</h3>
+                    </div>
+                  )}
+                </>
+              )}
+            </>
+          ) : searching === false ? (
+            contacts?.map((contact) => (
+              <ContactCard
+                key={contact.id}
+                contact={contact}
+                selected={selectedContact === contact.id}
                 setSelectedContact={setSelectedContact}
-                {...contact}
               />
             ))
-          : contacts.map((contact) => (
-              <Contact
-                key={contact.username}
-                selected={selectedContact === contact.username}
-                setSelectedContact={setSelectedContact}
-                {...contact}
-              />
-            ))}
-      </div>
+          ) : (
+            <Loading />
+          )}
+        </div>
+      ) : (
+        rows.map((row, index) => <CardSkeleton key={index} />)
+      )}
     </div>
   );
 };

@@ -5,7 +5,7 @@ import React from "react";
 import { getSession } from "next-auth/react";
 
 const Home: NextApplicationPage = () => {
-  return <p>Home</p>;
+  return <></>;
 };
 
 Home.getLayout = (page) => {

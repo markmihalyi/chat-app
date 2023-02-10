@@ -1,11 +1,8 @@
 import React from "react";
 
-const Loading: React.FC = () => {
+const LoadingPage: React.FC = () => {
   return (
-    <div
-      className="flex h-screen w-screen flex-col items-center justify-center"
-      role="status"
-    >
+    <div className="flex h-screen w-screen flex-col items-center justify-center" role="status">
       <svg
         className="dark:text-gray-600 mr-2 inline h-12 w-12 animate-spin fill-theme-darker text-[#E4E4E4]"
         viewBox="0 0 100 101"
@@ -30,4 +27,4 @@ const Loading: React.FC = () => {
   );
 };
 
-export default Loading;
+export default LoadingPage;

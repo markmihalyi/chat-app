@@ -5,12 +5,28 @@ import TabMenu, { tabs } from "./TabMenu";
 type Props = {
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  requestCount: number;
+  setRequestCount: React.Dispatch<React.SetStateAction<number>>;
+  updateContacts: () => Promise<void>;
 };
 
-export type TabId = "account" | "general" | "notifications";
+export type TabId = "incoming" | "outgoing";
 
-const SettingsDialog: React.FC<Props> = ({ show, setShow }) => {
-  const [selectedTab, setSelectedTab] = React.useState<TabId>("account");
+type TabComponentProps = {
+  key: TabId;
+  updateContacts: () => Promise<void>;
+  requestCount?: number;
+  setRequestCount?: React.Dispatch<React.SetStateAction<number>>;
+};
+
+const RequestsDialog: React.FC<Props> = ({
+  show,
+  setShow,
+  requestCount,
+  setRequestCount,
+  updateContacts,
+}) => {
+  const [selectedTab, setSelectedTab] = React.useState<TabId>("incoming");
 
   return (
     <Transition appear show={show} as={Fragment}>
@@ -38,12 +54,23 @@ const SettingsDialog: React.FC<Props> = ({ show, setShow }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="flex h-[450px] w-[900px] transform select-none overflow-hidden rounded-2xl bg-white text-left text-secondary-dark shadow-xl transition-all">
-                <TabMenu selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
+              <Dialog.Panel className="flex h-[450px] w-[600px] transform select-none overflow-hidden rounded-2xl bg-white text-left text-secondary-dark shadow-xl transition-all">
+                <TabMenu
+                  selectedTab={selectedTab}
+                  setSelectedTab={setSelectedTab}
+                  requestCount={requestCount}
+                />
 
                 {tabs.map((tab) => {
                   if (tab.id === selectedTab) {
-                    return <React.Fragment key={tab.id}>{tab.component}</React.Fragment>;
+                    const tabComponentProps: TabComponentProps = { key: tab.id, updateContacts };
+                    if (tab.id === "incoming") {
+                      tabComponentProps.requestCount = requestCount;
+                      tabComponentProps.setRequestCount = setRequestCount;
+                    }
+
+                    const tabComponent = React.cloneElement(tab.component, tabComponentProps);
+                    return <React.Fragment key={tab.id}>{tabComponent}</React.Fragment>;
                   }
                 })}
 
@@ -75,4 +102,4 @@ const SettingsDialog: React.FC<Props> = ({ show, setShow }) => {
   );
 };
 
-export default SettingsDialog;
+export default RequestsDialog;

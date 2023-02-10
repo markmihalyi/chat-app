@@ -10,7 +10,7 @@ const Navbar: React.FC = () => {
 
   const router = useRouter();
 
-  const [showSettingsMenu, setShowSettingsMenu] = React.useState(false);
+  const [showSettingsMenu, setShowSettingsMenu] = React.useState<boolean>(false);
 
   return (
     <div
@@ -20,23 +20,16 @@ const Navbar: React.FC = () => {
       {/* Top left corner */}
       <div
         className="flex cursor-pointer select-none items-center"
-        onClick={() => router.push("/")}
+        onClick={() => (window.location.href = "/")}
       >
-        <Image
-          className="mr-4"
-          src="/logos/logo.png"
-          alt="Logo"
-          width={32}
-          height={32}
-          draggable={false}
-        />
-        <h1 className="text-xl font-bold text-secondary-dark">Chat App</h1>
+        <Image src="/logos/logo.png" alt="Logo" width={32} height={32} draggable={false} />
+        <h1 className="ml-4 text-xl font-bold text-secondary-dark">Chat App</h1>
       </div>
       {/* Top right corner */}
       <div className="flex h-full select-none items-center">
         <div className="flex h-14 w-10 items-center justify-center">
           <Image
-            className="w-9 cursor-pointer rounded-full p-1 hover:bg-light-1 active:bg-light-2"
+            className="w-9 cursor-pointer rounded-full p-1 transition hover:bg-light-1 active:bg-light-2"
             src="/icons/navbar/Settings.svg"
             alt="Settings"
             width={24}
@@ -44,10 +37,7 @@ const Navbar: React.FC = () => {
             draggable={false}
             onClick={() => setShowSettingsMenu(true)}
           />
-          <SettingsDialog
-            show={showSettingsMenu}
-            setShow={setShowSettingsMenu}
-          />
+          <SettingsDialog show={showSettingsMenu} setShow={setShowSettingsMenu} />
         </div>
         <UserMenu setShowSettingsMenu={setShowSettingsMenu} />
         <div
