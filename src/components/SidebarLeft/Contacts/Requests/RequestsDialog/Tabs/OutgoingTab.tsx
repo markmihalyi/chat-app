@@ -1,7 +1,7 @@
 import React from "react";
 import type { ReactNode } from "react";
-import RequestCard from "components/Sidebar/Contacts/Requests/RequestsDialog/Tabs/RequestCard";
-import RequestCardSkeleton from "components/Sidebar/Contacts/Requests/RequestsDialog/Tabs/RequestCardSkeleton";
+import RequestCard from "components/SidebarLeft/Contacts/Requests/RequestsDialog/Tabs/RequestCard";
+import RequestCardSkeleton from "components/SidebarLeft/Contacts/Requests/RequestsDialog/Tabs/RequestCardSkeleton";
 import axios from "axios";
 
 export type RequestingUser = {

@@ -3,6 +3,7 @@ import "../styles/globals.css";
 import type { ComponentType, ReactElement, ReactNode } from "react";
 
 import type { AppProps } from "next/app";
+import { ContactContextProvider } from "common/providers/ContactProvider";
 import Head from "next/head";
 import type { NextPage } from "next";
 import React from "react";
@@ -36,7 +37,9 @@ const ChatApp = (props: AppProps) => {
       </Head>
       <SessionProvider session={session}>
         <SocketContextProvider>
-          <Layout>{getLayout(<Component {...pageProps} />)}</Layout>
+          <ContactContextProvider>
+            <Layout>{getLayout(<Component {...pageProps} />)}</Layout>
+          </ContactContextProvider>
         </SocketContextProvider>
       </SessionProvider>
     </>

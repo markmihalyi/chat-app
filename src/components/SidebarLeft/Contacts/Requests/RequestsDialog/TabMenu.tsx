@@ -21,7 +21,7 @@ export const tabs: Array<Tab> = [
   {
     id: "incoming",
     name: "Incoming",
-    icon: "/icons/sidebar/requests/FolderNotchOpen.svg",
+    icon: "/icons/sidebar-left/requests/FolderNotchOpen.svg",
     component: (
       <IncomingTab
         requestCount={0}
@@ -37,7 +37,7 @@ export const tabs: Array<Tab> = [
   {
     id: "outgoing",
     name: "Outgoing",
-    icon: "/icons/sidebar/requests/Signpost.svg",
+    icon: "/icons/sidebar-left/requests/Signpost.svg",
     component: <OutgoingTab />,
   },
 ];

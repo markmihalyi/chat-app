@@ -3,20 +3,13 @@ import React from "react";
 import axios from "axios";
 
 type Props = {
-  className?: string;
   contactId: string;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   updateRequests: (contactsChanged?: boolean) => Promise<void>;
 };
 
-const AcceptButton: React.FC<Props> = ({
-  className,
-  contactId,
-  loading,
-  setLoading,
-  updateRequests,
-}) => {
+const UnsendButton: React.FC<Props> = ({ contactId, loading, setLoading, updateRequests }) => {
   const [showLoadingCircle, setShowLoadingCircle] = React.useState<boolean>(false);
 
   const setLoadingStates = (state: boolean) => {
@@ -24,27 +17,28 @@ const AcceptButton: React.FC<Props> = ({
     setShowLoadingCircle(state);
   };
 
-  const handleAccept = async () => {
+  const handleUnsend = async () => {
     if (loading) return;
 
     try {
       setLoadingStates(true);
-      await axios.put("/api/v1/contacts/requests/accept", { contactId });
-      await updateRequests(true);
+      await axios.put("/api/v1/contacts/requests/unsend", { contactId });
+      await updateRequests();
       setLoadingStates(false);
     } catch (error) {
+      console.log(error);
       setLoadingStates(false);
       return;
     }
   };
 
   return (
-    <div className={className}>
+    <>
       {!showLoadingCircle ? (
         <Image
-          onClick={handleAccept}
-          className="cursor-pointer rounded-full p-1 hover:bg-[#4188ff] hover:bg-opacity-10 active:bg-opacity-20"
-          src="/icons/sidebar/requests/Check.svg"
+          onClick={handleUnsend}
+          className="cursor-pointer rounded-full p-1.5 hover:bg-[#616C76] hover:bg-opacity-10 active:bg-opacity-20"
+          src="/icons/Close.svg"
           width={32}
           height={32}
           alt="Accept"
@@ -53,7 +47,7 @@ const AcceptButton: React.FC<Props> = ({
       ) : (
         <div className="flex h-8 w-8 items-center justify-center" role="status">
           <svg
-            className="dark:text-gray-600 animate-spin fill-[#4188ff] p-2 text-[#E4E4E4]"
+            className="dark:text-gray-600 animate-spin fill-[#616C76] p-2 text-[#E4E4E4]"
             viewBox="0 0 100 101"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -70,8 +64,8 @@ const AcceptButton: React.FC<Props> = ({
           <span className="sr-only">Loading...</span>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
-export default AcceptButton;
+export default UnsendButton;

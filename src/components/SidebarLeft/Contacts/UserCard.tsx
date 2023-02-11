@@ -1,10 +1,10 @@
 import CardButton from "./CardButton";
-import type { Contact } from ".";
+import type { Contact } from "common/providers/ContactProvider/types";
 import Image from "next/image";
 import React from "react";
 
 type Props = {
-  contact: Contact;
+  contact: Contact & { alreadySentRequest?: boolean };
 };
 
 const UserCard: React.FC<Props> = ({ contact }) => {

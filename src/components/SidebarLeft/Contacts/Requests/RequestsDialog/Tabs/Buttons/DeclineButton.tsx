@@ -37,7 +37,7 @@ const DeclineButton: React.FC<Props> = ({ contactId, loading, setLoading, update
         <Image
           onClick={handleDecline}
           className="cursor-pointer rounded-full p-1.5 hover:bg-[#616C76] hover:bg-opacity-10 active:bg-opacity-20"
-          src="/icons/sidebar/requests/Close.svg"
+          src="/icons/Close.svg"
           width={32}
           height={32}
           alt="Accept"

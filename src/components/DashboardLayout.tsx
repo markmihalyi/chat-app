@@ -1,15 +1,17 @@
 import Navbar from "./Navbar";
 import React from "react";
-import Sidebar from "./Sidebar";
+import SidebarLeft from "./SidebarLeft";
+import SidebarRight from "components/SidebarRight";
 
 const DashboardLayout: React.FC<{ page: React.ReactElement }> = ({ page }) => {
   return (
     <main className="flex h-screen flex-col items-center justify-center">
       <div className="flex flex-col rounded-2xl bg-white shadow-xl xl:h-[900px] xl:w-[1440px]">
         <Navbar />
-        <div className="flex h-full rounded-b-2xl bg-white">
-          <Sidebar />
+        <div className="flex h-full justify-between rounded-b-2xl bg-white">
+          <SidebarLeft />
           {page}
+          <SidebarRight />
         </div>
       </div>
     </main>

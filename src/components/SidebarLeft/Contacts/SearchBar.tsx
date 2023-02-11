@@ -1,21 +1,18 @@
-import type { Contact } from ".";
+import type { Contact } from "common/providers/ContactProvider/types";
 import Image from "next/image";
 import React from "react";
 import axios from "axios";
+import useContact from "common/hooks/useContact";
 
 type Props = {
   setSearching: React.Dispatch<React.SetStateAction<boolean>>;
-  setContacts: React.Dispatch<React.SetStateAction<Array<Contact> | null>>;
   setFilteredUsers: React.Dispatch<React.SetStateAction<Array<Contact> | null>>;
   setFilteredContacts: React.Dispatch<React.SetStateAction<Array<Contact> | null>>;
 };
 
-const SearchBar: React.FC<Props> = ({
-  setSearching,
-  setContacts,
-  setFilteredUsers,
-  setFilteredContacts,
-}) => {
+const SearchBar: React.FC<Props> = ({ setSearching, setFilteredUsers, setFilteredContacts }) => {
+  const { setContacts } = useContact();
+
   const [searchInput, setSearchInput] = React.useState<string>("");
 
   const clearInput = () => {
@@ -67,7 +64,7 @@ const SearchBar: React.FC<Props> = ({
       onSubmit={handleFormSubmit}
     >
       <Image
-        src="/icons/sidebar/Search.svg"
+        src="/icons/sidebar-left/Search.svg"
         alt="Search"
         width={20}
         height={20}

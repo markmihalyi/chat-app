@@ -1,4 +1,5 @@
 import CardSkeleton from "./CardSkeleton";
+import type { Contact } from "common/providers/ContactProvider/types";
 import ContactCard from "./ContactCard";
 import Loading from "./Loading";
 import React from "react";
@@ -7,15 +8,8 @@ import RequestsButton from "./Requests/RequestsButton";
 import SearchBar from "./SearchBar";
 import UserCard from "./UserCard";
 import axios from "axios";
+import useContact from "common/hooks/useContact";
 import { useSession } from "next-auth/react";
-
-export type Contact = {
-  id: string;
-  name: string;
-  image: string;
-  bio?: string;
-  alreadySentRequest: boolean;
-};
 
 const Contacts: React.FC = () => {
   const [rows, setRows] = React.useState<Array<ReactNode>>([]);
@@ -33,7 +27,7 @@ const Contacts: React.FC = () => {
     }
   }, [data]);
 
-  const [contacts, setContacts] = React.useState<Array<Contact> | null>([]);
+  const { contacts, setContacts, selectedContact, setSelectedContact } = useContact();
 
   const [loading, setLoading] = React.useState<boolean>(true);
   const [searching, setSearching] = React.useState<boolean>(false);
@@ -58,19 +52,17 @@ const Contacts: React.FC = () => {
     if (contacts === null) {
       updateContacts();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contacts]);
 
   const [filteredUsers, setFilteredUsers] = React.useState<Array<Contact> | null>(null);
   const [filteredContacts, setFilteredContacts] = React.useState<Array<Contact> | null>(null);
-
-  const [selectedContact, setSelectedContact] = React.useState<string>("");
 
   return (
     <div className="flex select-none flex-col 2xl:h-[844px]">
       <div className="flex items-center justify-between border-light-2 py-3 px-4">
         <SearchBar
           setSearching={setSearching}
-          setContacts={setContacts}
           setFilteredUsers={setFilteredUsers}
           setFilteredContacts={setFilteredContacts}
         />
@@ -107,7 +99,7 @@ const Contacts: React.FC = () => {
                         <ContactCard
                           key={contact.id}
                           contact={contact}
-                          selected={selectedContact === contact.id}
+                          selected={selectedContact.id === contact.id}
                           setSelectedContact={setSelectedContact}
                         />
                       ))}
@@ -125,7 +117,7 @@ const Contacts: React.FC = () => {
               <ContactCard
                 key={contact.id}
                 contact={contact}
-                selected={selectedContact === contact.id}
+                selected={selectedContact.id === contact.id}
                 setSelectedContact={setSelectedContact}
               />
             ))

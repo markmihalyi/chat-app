@@ -1,18 +1,18 @@
-import type { Contact } from ".";
+import type { Contact } from "common/providers/ContactProvider/types";
 import Image from "next/image";
 import React from "react";
 
 // TODO: lastMessage, lastMessageTime
 
 type Props = {
-  contact: Contact | null;
+  contact: Contact;
   selected: boolean;
-  setSelectedContact: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedContact: React.Dispatch<React.SetStateAction<Contact>>;
 };
 
 const ContactCard: React.FC<Props> = ({ contact, selected, setSelectedContact }) => {
   const handleSelect = () => {
-    setSelectedContact(contact?.id || "");
+    setSelectedContact(contact);
     // TODO: Handle contact selection
   };
 

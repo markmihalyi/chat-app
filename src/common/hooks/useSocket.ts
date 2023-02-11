@@ -1,10 +1,10 @@
-import React from 'react';
-import SocketContext from '../providers/SocketProvider';
-import type { SocketContextType } from '../providers/SocketProvider';
+import React from "react";
+import SocketContext from "../providers/SocketProvider";
+import type { SocketContextType } from "../providers/SocketProvider";
 
 const useSocket = () => {
-  const { socket, isConnected } = React.useContext<SocketContextType>(SocketContext);
-  return { socket, isConnected };
+  const data = React.useContext<SocketContextType>(SocketContext);
+  return data;
 };
 
 export default useSocket;

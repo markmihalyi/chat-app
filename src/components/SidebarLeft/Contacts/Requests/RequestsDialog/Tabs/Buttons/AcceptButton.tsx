@@ -3,13 +3,20 @@ import React from "react";
 import axios from "axios";
 
 type Props = {
+  className?: string;
   contactId: string;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   updateRequests: (contactsChanged?: boolean) => Promise<void>;
 };
 
-const UnsendButton: React.FC<Props> = ({ contactId, loading, setLoading, updateRequests }) => {
+const AcceptButton: React.FC<Props> = ({
+  className,
+  contactId,
+  loading,
+  setLoading,
+  updateRequests,
+}) => {
   const [showLoadingCircle, setShowLoadingCircle] = React.useState<boolean>(false);
 
   const setLoadingStates = (state: boolean) => {
@@ -17,28 +24,27 @@ const UnsendButton: React.FC<Props> = ({ contactId, loading, setLoading, updateR
     setShowLoadingCircle(state);
   };
 
-  const handleUnsend = async () => {
+  const handleAccept = async () => {
     if (loading) return;
 
     try {
       setLoadingStates(true);
-      await axios.put("/api/v1/contacts/requests/unsend", { contactId });
-      await updateRequests();
+      await axios.put("/api/v1/contacts/requests/accept", { contactId });
+      await updateRequests(true);
       setLoadingStates(false);
     } catch (error) {
-      console.log(error);
       setLoadingStates(false);
       return;
     }
   };
 
   return (
-    <>
+    <div className={className}>
       {!showLoadingCircle ? (
         <Image
-          onClick={handleUnsend}
-          className="cursor-pointer rounded-full p-1.5 hover:bg-[#616C76] hover:bg-opacity-10 active:bg-opacity-20"
-          src="/icons/sidebar/requests/Close.svg"
+          onClick={handleAccept}
+          className="cursor-pointer rounded-full p-1 hover:bg-[#4188ff] hover:bg-opacity-10 active:bg-opacity-20"
+          src="/icons/sidebar-left/requests/Check.svg"
           width={32}
           height={32}
           alt="Accept"
@@ -47,7 +53,7 @@ const UnsendButton: React.FC<Props> = ({ contactId, loading, setLoading, updateR
       ) : (
         <div className="flex h-8 w-8 items-center justify-center" role="status">
           <svg
-            className="dark:text-gray-600 animate-spin fill-[#616C76] p-2 text-[#E4E4E4]"
+            className="dark:text-gray-600 animate-spin fill-[#4188ff] p-2 text-[#E4E4E4]"
             viewBox="0 0 100 101"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -64,8 +70,8 @@ const UnsendButton: React.FC<Props> = ({ contactId, loading, setLoading, updateR
           <span className="sr-only">Loading...</span>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
-export default UnsendButton;
+export default AcceptButton;

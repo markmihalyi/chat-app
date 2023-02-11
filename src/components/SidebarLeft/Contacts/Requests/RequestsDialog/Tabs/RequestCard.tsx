@@ -1,9 +1,9 @@
-import AcceptButton from "components/Sidebar/Contacts/Requests/RequestsDialog/Tabs/Buttons/AcceptButton";
-import DeclineButton from "components/Sidebar/Contacts/Requests/RequestsDialog/Tabs/Buttons/DeclineButton";
+import AcceptButton from "components/SidebarLeft/Contacts/Requests/RequestsDialog/Tabs/Buttons/AcceptButton";
+import DeclineButton from "components/SidebarLeft/Contacts/Requests/RequestsDialog/Tabs/Buttons/DeclineButton";
 import Image from "next/image";
 import React from "react";
-import type { RequestingUser } from "components/Sidebar/Contacts/Requests/RequestsDialog/Tabs/IncomingTab";
-import UnsendButton from "components/Sidebar/Contacts/Requests/RequestsDialog/Tabs/Buttons/UnsendButton";
+import type { RequestingUser } from "components/SidebarLeft/Contacts/Requests/RequestsDialog/Tabs/IncomingTab";
+import UnsendButton from "components/SidebarLeft/Contacts/Requests/RequestsDialog/Tabs/Buttons/UnsendButton";
 
 type Props = {
   type: "incoming" | "outgoing";
