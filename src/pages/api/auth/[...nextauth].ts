@@ -7,83 +7,6 @@ import { env } from "../../../env/server.mjs";
 import { prisma } from "../../../server/db";
 
 export const authOptions: NextAuthOptions = {
-  // Include user.id on session
-  callbacks: {
-    async signIn({ user }) {
-      if (!user) return false;
-
-      const userData = await prisma.user.findFirst({
-        where: { id: user.id },
-      });
-
-      if (!userData) return false;
-
-      // Ha már van felhasználóneve, akkor nem kell generálni
-      if (userData.username) return true;
-
-      // Ha még nincs felhasználóneve, akkor generál egyet
-      if (userData.name === null) return false;
-
-      let usernameIndex = 0;
-
-      while (true) {
-        let username = userData.name
-          .toLowerCase()
-          .normalize("NFD")
-          .replace(" ", "")
-          .replace(/[\u0300-\u036f]/g, "");
-
-        if (usernameIndex > 0) {
-          username += usernameIndex;
-        }
-
-        const usernameExists = await prisma.user.findFirst({
-          where: { username },
-        });
-        if (!usernameExists) {
-          await prisma.user.update({
-            where: { id: user.id },
-            data: { username },
-          });
-          break;
-        }
-
-        usernameIndex++;
-      }
-
-      return true;
-    },
-    async session({ session, user }) {
-      if (user) {
-        const userData = await prisma.user.findFirst({
-          where: { id: user.id },
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            image: true,
-            bio: true,
-            contacts: true,
-          },
-        });
-        if (!userData) {
-          return session;
-        }
-
-        const sessionUser = {
-          id: userData.id,
-          name: userData.name,
-          email: userData.email,
-          image: userData.image,
-          bio: userData.bio,
-          contactCount: userData.contacts.length,
-        };
-
-        session.user = sessionUser;
-      }
-      return session;
-    },
-  },
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -102,6 +25,84 @@ export const authOptions: NextAuthOptions = {
      * @see https://next-auth.js.org/providers/github
      */
   ],
+
+  // Include user.id on session
+  callbacks: {
+    async signIn({ user }) {
+      if (!user) return false;
+
+      const userData = await prisma.user.findFirst({
+        where: { id: user?.id },
+      });
+      if (!userData) return false;
+
+      // Ha már van felhasználóneve, akkor nem kell generálni
+      if (userData?.username) return true;
+
+      // Ha még nincs felhasználóneve, akkor generál egyet
+      let usernameIndex = 0;
+
+      while (true) {
+        let username = "";
+        username += userData?.name
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(" ", "")
+          .replace(/[\u0300-\u036f]/g, "");
+
+        if (usernameIndex > 0) {
+          username += usernameIndex;
+        }
+
+        const usernameExists = await prisma.user.findFirst({
+          where: { username },
+        });
+        if (!usernameExists) {
+          await prisma.user.update({
+            where: { id: user?.id },
+            data: { username },
+          });
+          break;
+        }
+
+        usernameIndex++;
+      }
+
+      return true;
+    },
+    async session({ session, user }) {
+      if (user) {
+        const userData = await prisma.user.findFirst({
+          where: { id: user.id },
+          select: {
+            id: true,
+            name: true,
+            username: true,
+            email: true,
+            image: true,
+            bio: true,
+            contacts: true,
+          },
+        });
+        if (!userData) {
+          return session;
+        }
+
+        const sessionUser = {
+          id: userData.id,
+          name: userData.name,
+          username: userData.username,
+          email: userData.email,
+          image: userData.image,
+          bio: userData.bio,
+          contactCount: userData.contacts.length,
+        };
+
+        session.user = sessionUser;
+      }
+      return session;
+    },
+  },
 };
 
 export default NextAuth(authOptions);

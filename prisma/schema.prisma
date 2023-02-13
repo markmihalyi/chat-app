@@ -53,6 +53,7 @@ model User {
   outgoingRequests String[]
   accounts         Account[]
   sessions         Session[]
+  emailVerified    Boolean?   @default(false)
 }
 
 model VerificationToken {
