@@ -16,5 +16,9 @@ const config = {
       },
     ],
   },
+  webpack: (config) => {
+    config.optimization.runtimeChunk = "single";
+    return config;
+  },
 };
 export default config;
