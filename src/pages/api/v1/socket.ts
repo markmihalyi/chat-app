@@ -2,9 +2,9 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import type { ChatMessage } from "components/Chat";
 import type { Server as HttpServer } from "http";
-import type { Socket } from "Socket.IO";
+import type { Socket } from "socket.io";
 import SocketEvents from "common/providers/SocketProvider/types";
-import { Server as SocketServer } from "Socket.IO";
+import { Server as SocketServer } from "socket.io";
 import { authOptions } from "pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 
