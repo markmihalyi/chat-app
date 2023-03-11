@@ -104,9 +104,10 @@ const UserMenu: React.FC<Props> = ({ setShowSettingsMenu }) => {
             <Menu.Item key={index}>
               <button
                 onClick={item.onClick}
-                className={`flex ${
-                  item.divider ? "border-b-[1px] border-divider" : ""
-                } p-3 hover:bg-secondary-light`}
+                className={`flex
+                ${item.divider ? "border-b border-divider" : ""}
+                p-3 hover:bg-secondary-light
+                ${index === MenuItems.length - 1 ? "rounded-b-xl" : ""}`}
               >
                 <Image
                   className="mr-2"
