@@ -1,11 +1,17 @@
+import Chat from "components/Chat";
 import DashboardLayout from "../components/DashboardLayout";
 import type { NextApplicationPage } from "./_app";
 import type { NextPageContext } from "next";
 import React from "react";
 import { getSession } from "next-auth/react";
+import useContact from "common/hooks/useContact";
 
 const Home: NextApplicationPage = () => {
-  return <></>;
+  const { selectedContact } = useContact();
+
+  if (selectedContact.id === "") return null;
+
+  return <Chat />;
 };
 
 Home.getLayout = (page) => {
