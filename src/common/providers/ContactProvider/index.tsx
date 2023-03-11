@@ -2,11 +2,13 @@ import type { Contact } from "common/providers/ContactProvider/types";
 import React from "react";
 import SocketEvents from "common/providers/SocketProvider/types";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import useSocket from "common/hooks/useSocket";
 
 export type ContactContextType = {
   contacts: Array<Contact> | null;
   setContacts: React.Dispatch<React.SetStateAction<Array<Contact> | null>>;
+  contactCount: number;
   selectedContact: Contact;
   setSelectedContact: React.Dispatch<React.SetStateAction<Contact>>;
   incomingRequestCount: number;
@@ -17,6 +19,14 @@ const ContactContext = React.createContext<ContactContextType>({} as ContactCont
 
 const ContactContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [contacts, setContacts] = React.useState<Array<Contact> | null>(null);
+
+  const { data } = useSession();
+  const [contactCount, setContactCount] = React.useState<number>(data?.user?.contactCount || 0);
+  React.useEffect(() => {
+    if (contacts) {
+      setContactCount(contacts.length);
+    }
+  }, [contacts]);
 
   const [selectedContact, setSelectedContact] = React.useState<Contact>({
     id: "",
@@ -55,6 +65,7 @@ const ContactContextProvider: React.FC<{ children: React.ReactNode }> = ({ child
       value={{
         contacts,
         setContacts,
+        contactCount,
         selectedContact,
         setSelectedContact,
         incomingRequestCount,

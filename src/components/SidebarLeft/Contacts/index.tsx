@@ -10,24 +10,19 @@ import SocketEvents from "common/providers/SocketProvider/types";
 import UserCard from "./UserCard";
 import axios from "axios";
 import useContact from "common/hooks/useContact";
-import { useSession } from "next-auth/react";
 import useSocket from "common/hooks/useSocket";
 
 const Contacts: React.FC = () => {
   const [rows, setRows] = React.useState<Array<ReactNode>>([]);
 
-  const { data } = useSession();
-
+  const { contactCount } = useContact();
   React.useEffect(() => {
-    if (data) {
-      const contactCount = data.user?.contactCount || 0;
-      const rows: Array<ReactNode> = [];
-      for (let i = 0; i < contactCount; i++) {
-        rows.push(<CardSkeleton />);
-      }
-      setRows(rows);
+    const rows: Array<ReactNode> = [];
+    for (let i = 0; i < contactCount; i++) {
+      rows.push(<CardSkeleton />);
     }
-  }, [data]);
+    setRows(rows);
+  }, [contactCount]);
 
   const { contacts, setContacts, selectedContact, setSelectedContact } = useContact();
 
