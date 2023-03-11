@@ -1,11 +1,16 @@
 import type { Contact } from "common/providers/ContactProvider/types";
 import React from "react";
+import SocketEvents from "common/providers/SocketProvider/types";
+import axios from "axios";
+import useSocket from "common/hooks/useSocket";
 
 export type ContactContextType = {
   contacts: Array<Contact> | null;
   setContacts: React.Dispatch<React.SetStateAction<Array<Contact> | null>>;
   selectedContact: Contact;
   setSelectedContact: React.Dispatch<React.SetStateAction<Contact>>;
+  incomingRequestCount: number;
+  setIncomingRequestCount: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const ContactContext = React.createContext<ContactContextType>({} as ContactContextType);
@@ -20,8 +25,42 @@ const ContactContextProvider: React.FC<{ children: React.ReactNode }> = ({ child
     image: "",
   });
 
+  const [incomingRequestCount, setIncomingRequestCount] = React.useState<number>(0);
+
+  const updateIncomingRequestCount = async () => {
+    const res = await axios.get("/api/v1/contacts/requests/count");
+    setIncomingRequestCount(res.data.count);
+  };
+
+  React.useEffect(() => {
+    updateIncomingRequestCount();
+  }, []);
+
+  const { socket } = useSocket();
+
+  React.useEffect(() => {
+    if (socket) {
+      socket.on(SocketEvents.NEW_FRIEND_REQUEST, () => {
+        updateIncomingRequestCount();
+      });
+
+      socket.on(SocketEvents.FRIEND_REQUEST_UNSENT, () => {
+        updateIncomingRequestCount();
+      });
+    }
+  }, [socket]);
+
   return (
-    <ContactContext.Provider value={{ contacts, setContacts, selectedContact, setSelectedContact }}>
+    <ContactContext.Provider
+      value={{
+        contacts,
+        setContacts,
+        selectedContact,
+        setSelectedContact,
+        incomingRequestCount,
+        setIncomingRequestCount,
+      }}
+    >
       {children}
     </ContactContext.Provider>
   );

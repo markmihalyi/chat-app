@@ -1,29 +1,15 @@
 import React from "react";
 import RequestsDialog from "./RequestsDialog";
-import axios from "axios";
+import useContact from "common/hooks/useContact";
 
 type Props = {
   updateContacts: () => Promise<void>;
 };
 
 const RequestsButton: React.FC<Props> = ({ updateContacts }) => {
-  const [requestCount, setRequestCount] = React.useState<number>(0);
+  const { incomingRequestCount } = useContact();
 
   const [showRequestsMenu, setShowRequestsMenu] = React.useState<boolean>(false);
-
-  // TODO: Értesítések átalakítása WebSocket-re, hogy azonnal frissüljön a szám
-
-  React.useEffect(() => {
-    (async () => {
-      try {
-        const res = await axios.get("/api/v1/contacts/requests/count");
-        const { count } = res.data;
-        setRequestCount(count);
-      } catch (err) {
-        return;
-      }
-    })();
-  }, []);
 
   return (
     <>
@@ -62,17 +48,15 @@ const RequestsButton: React.FC<Props> = ({ updateContacts }) => {
             />
           </svg>
         </div>
-        {requestCount > 0 && (
+        {incomingRequestCount > 0 && (
           <span className="absolute top-0 right-0 inline-flex translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-full bg-red-500 px-1.5 py-1 text-[10px] font-bold leading-none text-red-100">
-            {requestCount > 99 ? "99+" : requestCount}
+            {incomingRequestCount > 99 ? "99+" : incomingRequestCount}
           </span>
         )}
       </div>
       <RequestsDialog
         show={showRequestsMenu}
         setShow={setShowRequestsMenu}
-        requestCount={requestCount}
-        setRequestCount={setRequestCount}
         updateContacts={updateContacts}
       />
     </>

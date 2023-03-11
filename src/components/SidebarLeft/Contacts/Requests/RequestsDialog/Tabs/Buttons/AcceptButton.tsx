@@ -1,6 +1,8 @@
 import Image from "next/image";
 import React from "react";
+import SocketEvents from "common/providers/SocketProvider/types";
 import axios from "axios";
+import useSocket from "common/hooks/useSocket";
 
 type Props = {
   className?: string;
@@ -17,6 +19,8 @@ const AcceptButton: React.FC<Props> = ({
   setLoading,
   updateRequests,
 }) => {
+  const { socket } = useSocket();
+
   const [showLoadingCircle, setShowLoadingCircle] = React.useState<boolean>(false);
 
   const setLoadingStates = (state: boolean) => {
@@ -30,6 +34,7 @@ const AcceptButton: React.FC<Props> = ({
     try {
       setLoadingStates(true);
       await axios.put("/api/v1/contacts/requests/accept", { contactId });
+      socket?.emit(SocketEvents.ACCEPT_FRIEND_REQUEST, contactId);
       await updateRequests(true);
       setLoadingStates(false);
     } catch (error) {

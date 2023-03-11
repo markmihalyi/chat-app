@@ -1,5 +1,7 @@
 import React from "react";
+import SocketEvents from "common/providers/SocketProvider/types";
 import axios from "axios";
+import useSocket from "common/hooks/useSocket";
 
 const CardButton: React.FC<{ contactId?: string; alreadySentRequest?: boolean }> = ({
   alreadySentRequest,
@@ -7,6 +9,8 @@ const CardButton: React.FC<{ contactId?: string; alreadySentRequest?: boolean }>
 }) => {
   const [state, setState] = React.useState<"add" | "sent">("add");
   const [loading, setLoading] = React.useState<boolean>(false);
+
+  const { socket } = useSocket();
 
   React.useEffect(() => {
     if (alreadySentRequest) {
@@ -18,6 +22,7 @@ const CardButton: React.FC<{ contactId?: string; alreadySentRequest?: boolean }>
     try {
       setLoading(true);
       await axios.put("/api/v1/contacts/requests/send", { id: contactId });
+      socket?.emit(SocketEvents.SEND_FRIEND_REQUEST, contactId);
       setState("sent");
       setLoading(false);
     } catch (err) {

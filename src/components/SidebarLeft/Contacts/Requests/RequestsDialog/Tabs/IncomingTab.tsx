@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import RequestCard from "components/SidebarLeft/Contacts/Requests/RequestsDialog/Tabs/RequestCard";
 import RequestCardSkeleton from "components/SidebarLeft/Contacts/Requests/RequestsDialog/Tabs/RequestCardSkeleton";
 import axios from "axios";
+import useContact from "common/hooks/useContact";
 
 export type RequestingUser = {
   id: string;
@@ -11,28 +12,22 @@ export type RequestingUser = {
   bio: string;
 };
 
-type Props = {
-  requestCount: number;
-  setRequestCount: React.Dispatch<React.SetStateAction<number>>;
-  updateContacts: () => Promise<void>;
-};
+const IncomingTab: React.FC = () => {
+  const { incomingRequestCount, setIncomingRequestCount } = useContact();
 
-const IncomingTab: React.FC<Props> = ({ requestCount, setRequestCount, updateContacts }) => {
   const [users, setUsers] = React.useState<Array<RequestingUser>>([]);
   const [loading, setLoading] = React.useState<boolean>(true);
 
   const [rows, setRows] = React.useState<Array<ReactNode>>([]);
 
-  const updateRequests = async (contactsChanged = false) => {
+  const updateRequests = async () => {
     setLoading(true);
     const res = await axios.get("/api/v1/contacts/requests/incoming");
     const data: Array<RequestingUser> = res.data;
-    setRequestCount(data.length);
-
-    if (contactsChanged) updateContacts();
+    setIncomingRequestCount(data.length);
 
     const rows: Array<ReactNode> = [];
-    for (let i = 0; i < requestCount; i++) {
+    for (let i = 0; i < incomingRequestCount; i++) {
       rows.push(<RequestCardSkeleton key={i} />);
     }
     setRows(rows);
@@ -42,9 +37,14 @@ const IncomingTab: React.FC<Props> = ({ requestCount, setRequestCount, updateCon
   };
 
   React.useEffect(() => {
-    if (requestCount > 0) {
+    updateRequests();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [incomingRequestCount]);
+
+  React.useEffect(() => {
+    if (incomingRequestCount > 0) {
       const rows: Array<ReactNode> = [];
-      for (let i = 0; i < requestCount; i++) {
+      for (let i = 0; i < incomingRequestCount; i++) {
         rows.push(<RequestCardSkeleton key={i} />);
       }
       setRows(rows);

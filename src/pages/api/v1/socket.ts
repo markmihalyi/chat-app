@@ -42,7 +42,6 @@ const SocketHandler = async (req: NextApiRequest, res: NextApiResponseWithSocket
 
       let ownUserId: string;
 
-      // Socket User ID beállítása első csatlakozáskor
       socket.on(SocketEvents.SOCKET_CONNECTED, (userId: string) => {
         ownUserId = userId;
         socket.join(ownUserId);
@@ -64,6 +63,29 @@ const SocketHandler = async (req: NextApiRequest, res: NextApiResponseWithSocket
           date: new Date(),
           type: "contact",
         } as ChatMessage);
+      });
+
+      // Barát-kérelem küldése
+      socket.on(SocketEvents.SEND_FRIEND_REQUEST, (targetUserId: string) => {
+        console.log(`${ownUserId} -> ${targetUserId}: Add friend`);
+
+        socket.to(targetUserId).emit(SocketEvents.NEW_FRIEND_REQUEST, ownUserId);
+      });
+
+      // Barát-kérelem elfogadása
+      socket.on(SocketEvents.ACCEPT_FRIEND_REQUEST, (targetUserId: string) => {
+        console.log(`${ownUserId} -> ${targetUserId}: Accept friend`);
+
+        socket.to(targetUserId).emit(SocketEvents.FRIEND_REQUEST_ACCEPTED, ownUserId);
+        socket.to(ownUserId).emit(SocketEvents.FRIEND_REQUEST_ACCEPTED, targetUserId);
+      });
+
+      // Barát-kérelem visszavonása
+      socket.on(SocketEvents.UNSEND_FRIEND_REQUEST, (targetUserId: string) => {
+        console.log(`${ownUserId} -> ${targetUserId}: Unsend friend`);
+
+        socket.to(targetUserId).emit(SocketEvents.FRIEND_REQUEST_UNSENT, ownUserId);
+        socket.to(ownUserId).emit(SocketEvents.FRIEND_REQUEST_UNSENT, targetUserId);
       });
     });
 

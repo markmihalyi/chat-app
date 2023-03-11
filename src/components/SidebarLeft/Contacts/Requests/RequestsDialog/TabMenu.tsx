@@ -7,7 +7,6 @@ import type { TabId } from ".";
 type Props = {
   selectedTab: TabId;
   setSelectedTab: React.Dispatch<React.SetStateAction<TabId>>;
-  requestCount: number;
 };
 
 type Tab = {
@@ -22,17 +21,7 @@ export const tabs: Array<Tab> = [
     id: "incoming",
     name: "Incoming",
     icon: "/icons/sidebar-left/requests/FolderNotchOpen.svg",
-    component: (
-      <IncomingTab
-        requestCount={0}
-        setRequestCount={() => {
-          return;
-        }}
-        updateContacts={async () => {
-          return;
-        }}
-      />
-    ),
+    component: <IncomingTab />,
   },
   {
     id: "outgoing",
