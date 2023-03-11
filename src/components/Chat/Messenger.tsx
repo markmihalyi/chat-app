@@ -1,4 +1,4 @@
-import type { DefaultEventsMap } from "Socket.IO/dist/typed-events";
+import type { DefaultEventsMap } from "socket.io/dist/typed-events";
 import Image from "next/image";
 import React from "react";
 import type { Socket } from "socket.io-client";
