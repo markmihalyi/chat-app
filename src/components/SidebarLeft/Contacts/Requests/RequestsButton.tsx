@@ -1,13 +1,13 @@
 import React from "react";
 import RequestsDialog from "./RequestsDialog";
-import useContact from "common/hooks/useContact";
+import useContacts from "common/hooks/useContacts";
 
 type Props = {
   updateContacts: () => Promise<void>;
 };
 
 const RequestsButton: React.FC<Props> = ({ updateContacts }) => {
-  const { incomingRequestCount } = useContact();
+  const { incomingRequestCount } = useContacts();
 
   const [showRequestsMenu, setShowRequestsMenu] = React.useState<boolean>(false);
 

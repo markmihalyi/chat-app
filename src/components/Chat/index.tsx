@@ -2,7 +2,7 @@ import Message from "components/Chat/Message";
 import Messenger from "components/Chat/Messenger";
 import React from "react";
 import SocketEvents from "common/providers/SocketProvider/types";
-import useContact from "common/hooks/useContact";
+import useContacts from "common/hooks/useContacts";
 import useSocket from "common/hooks/useSocket";
 
 export type ChatMessage = {
@@ -13,7 +13,7 @@ export type ChatMessage = {
 
 const Chat: React.FC = () => {
   const { socket, isConnected } = useSocket();
-  const { selectedContact } = useContact();
+  const { selectedContact } = useContacts();
 
   const [messages, setMessages] = React.useState<Array<ChatMessage>>([
     {

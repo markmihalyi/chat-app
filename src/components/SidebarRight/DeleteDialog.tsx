@@ -4,7 +4,7 @@ import Image from "next/image";
 import React from "react";
 import SocketEvents from "common/providers/SocketProvider/types";
 import axios from "axios";
-import useContact from "common/hooks/useContact";
+import useContacts from "common/hooks/useContacts";
 import useSocket from "common/hooks/useSocket";
 
 type Props = {
@@ -16,7 +16,7 @@ type Props = {
 const DeleteDialog: React.FC<Props> = ({ contactId, show, setShow }) => {
   const { socket } = useSocket();
 
-  const { setSelectedContact } = useContact();
+  const { setSelectedContact } = useContacts();
   const [loading, setLoading] = React.useState<boolean>(true);
 
   const handleDelete = async () => {

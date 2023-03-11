@@ -1,10 +1,10 @@
 import DeleteDialog from "components/SidebarRight/DeleteDialog";
 import Image from "next/image";
 import React from "react";
-import useContact from "common/hooks/useContact";
+import useContacts from "common/hooks/useContacts";
 
 const SidebarRight: React.FC = () => {
-  const { selectedContact } = useContact();
+  const { selectedContact } = useContacts();
 
   const [showDeleteDialog, setShowDeleteDialog] = React.useState<boolean>(false);
 

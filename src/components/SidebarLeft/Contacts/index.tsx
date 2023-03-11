@@ -9,13 +9,13 @@ import SearchBar from "./SearchBar";
 import SocketEvents from "common/providers/SocketProvider/types";
 import UserCard from "./UserCard";
 import axios from "axios";
-import useContact from "common/hooks/useContact";
+import useContacts from "common/hooks/useContacts";
 import useSocket from "common/hooks/useSocket";
 
 const Contacts: React.FC = () => {
   const [rows, setRows] = React.useState<Array<ReactNode>>([]);
 
-  const { contactCount } = useContact();
+  const { contactCount } = useContacts();
   React.useEffect(() => {
     const rows: Array<ReactNode> = [];
     for (let i = 0; i < contactCount; i++) {
@@ -24,7 +24,7 @@ const Contacts: React.FC = () => {
     setRows(rows);
   }, [contactCount]);
 
-  const { contacts, setContacts, selectedContact, setSelectedContact } = useContact();
+  const { contacts, setContacts, selectedContact, setSelectedContact } = useContacts();
 
   const [loading, setLoading] = React.useState<boolean>(true);
   const [searching, setSearching] = React.useState<boolean>(false);

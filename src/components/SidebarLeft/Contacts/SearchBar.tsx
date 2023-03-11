@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 import SocketEvents from "common/providers/SocketProvider/types";
 import axios from "axios";
-import useContact from "common/hooks/useContact";
+import useContacts from "common/hooks/useContacts";
 import useSocket from "common/hooks/useSocket";
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
 };
 
 const SearchBar: React.FC<Props> = ({ setSearching, setFilteredUsers, setFilteredContacts }) => {
-  const { setContacts } = useContact();
+  const { setContacts } = useContacts();
 
   const [searchInput, setSearchInput] = React.useState<string>("");
 

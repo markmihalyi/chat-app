@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import RequestCard from "components/SidebarLeft/Contacts/Requests/RequestsDialog/Tabs/RequestCard";
 import RequestCardSkeleton from "components/SidebarLeft/Contacts/Requests/RequestsDialog/Tabs/RequestCardSkeleton";
 import axios from "axios";
-import useContact from "common/hooks/useContact";
+import useContacts from "common/hooks/useContacts";
 
 export type RequestingUser = {
   id: string;
@@ -13,7 +13,7 @@ export type RequestingUser = {
 };
 
 const IncomingTab: React.FC = () => {
-  const { incomingRequestCount, setIncomingRequestCount } = useContact();
+  const { incomingRequestCount, setIncomingRequestCount } = useContacts();
 
   const [users, setUsers] = React.useState<Array<RequestingUser>>([]);
   const [loading, setLoading] = React.useState<boolean>(true);

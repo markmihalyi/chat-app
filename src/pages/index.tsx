@@ -4,10 +4,10 @@ import type { NextApplicationPage } from "./_app";
 import type { NextPageContext } from "next";
 import React from "react";
 import { getSession } from "next-auth/react";
-import useContact from "common/hooks/useContact";
+import useContacts from "common/hooks/useContacts";
 
 const Home: NextApplicationPage = () => {
-  const { selectedContact } = useContact();
+  const { selectedContact } = useContacts();
 
   if (selectedContact.id === "") return null;
 
