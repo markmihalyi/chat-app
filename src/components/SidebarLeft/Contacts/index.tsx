@@ -6,10 +6,12 @@ import React from "react";
 import type { ReactNode } from "react";
 import RequestsButton from "./Requests/RequestsButton";
 import SearchBar from "./SearchBar";
+import SocketEvents from "common/providers/SocketProvider/types";
 import UserCard from "./UserCard";
 import axios from "axios";
 import useContact from "common/hooks/useContact";
 import { useSession } from "next-auth/react";
+import useSocket from "common/hooks/useSocket";
 
 const Contacts: React.FC = () => {
   const [rows, setRows] = React.useState<Array<ReactNode>>([]);
@@ -47,6 +49,17 @@ const Contacts: React.FC = () => {
     setContacts(data);
     setLoading(false);
   };
+
+  const { socket } = useSocket();
+  React.useEffect(() => {
+    if (socket) {
+      socket.on(SocketEvents.FRIEND_REMOVED, () => {
+        updateContacts();
+        setSelectedContact({ id: "", name: "", username: "", image: "" });
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [socket]);
 
   React.useEffect(() => {
     if (contacts === null) {

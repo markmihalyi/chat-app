@@ -15,6 +15,9 @@ enum SocketEvents {
 
   UNSEND_FRIEND_REQUEST = "unsendFriendRequest",
   FRIEND_REQUEST_UNSENT = "friendRequestUnsent",
+
+  REMOVE_FRIEND = "friendRemoved",
+  FRIEND_REMOVED = "friendRemoved",
 }
 
 export default SocketEvents;

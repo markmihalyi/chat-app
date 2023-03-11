@@ -87,6 +87,14 @@ const SocketHandler = async (req: NextApiRequest, res: NextApiResponseWithSocket
         socket.to(targetUserId).emit(SocketEvents.FRIEND_REQUEST_UNSENT, ownUserId);
         socket.to(ownUserId).emit(SocketEvents.FRIEND_REQUEST_UNSENT, targetUserId);
       });
+
+      // Barát törlése
+      socket.on(SocketEvents.REMOVE_FRIEND, (targetUserId: string) => {
+        console.log(`${ownUserId} -> ${targetUserId}: Remove friend`);
+
+        socket.to(targetUserId).emit(SocketEvents.FRIEND_REMOVED, ownUserId);
+        socket.to(ownUserId).emit(SocketEvents.FRIEND_REMOVED, targetUserId);
+      });
     });
 
     res.socket.server.io = io;
