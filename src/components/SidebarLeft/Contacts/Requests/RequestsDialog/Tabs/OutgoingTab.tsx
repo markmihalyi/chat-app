@@ -2,7 +2,9 @@ import React from "react";
 import type { ReactNode } from "react";
 import RequestCard from "components/SidebarLeft/Contacts/Requests/RequestsDialog/Tabs/RequestCard";
 import RequestCardSkeleton from "components/SidebarLeft/Contacts/Requests/RequestsDialog/Tabs/RequestCardSkeleton";
+import SocketEvents from "common/providers/SocketProvider/types";
 import axios from "axios";
+import useSocket from "common/hooks/useSocket";
 
 export type RequestingUser = {
   id: string;
@@ -31,6 +33,19 @@ const OutgoingTab: React.FC = () => {
     setUsers(data);
     setLoading(false);
   };
+
+  const { socket } = useSocket();
+  React.useEffect(() => {
+    if (socket) {
+      socket.on(SocketEvents.FRIEND_REQUEST_ACCEPTED, () => {
+        updateRequests();
+      });
+      socket.on(SocketEvents.FRIEND_REQUEST_REJECTED, () => {
+        updateRequests();
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [socket]);
 
   React.useEffect(() => {
     if (users.length > 0) {

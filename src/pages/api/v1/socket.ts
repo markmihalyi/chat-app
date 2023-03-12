@@ -65,32 +65,40 @@ const SocketHandler = async (req: NextApiRequest, res: NextApiResponseWithSocket
         } as ChatMessage);
       });
 
-      // Barát-kérelem küldése
+      // Ismerős-kérelem küldése
       socket.on(SocketEvents.SEND_FRIEND_REQUEST, (targetUserId: string) => {
-        console.log(`${ownUserId} -> ${targetUserId}: Add friend`);
+        console.log(`[Contact request sent] ${ownUserId} -> ${targetUserId}`);
 
         socket.to(targetUserId).emit(SocketEvents.NEW_FRIEND_REQUEST, ownUserId);
       });
 
-      // Barát-kérelem elfogadása
+      // Ismerős-kérelem elfogadása
       socket.on(SocketEvents.ACCEPT_FRIEND_REQUEST, (targetUserId: string) => {
-        console.log(`${ownUserId} -> ${targetUserId}: Accept friend`);
+        console.log(`[Contact request accepted] ${ownUserId} -> ${targetUserId}`);
 
         socket.to(targetUserId).emit(SocketEvents.FRIEND_REQUEST_ACCEPTED, ownUserId);
         socket.to(ownUserId).emit(SocketEvents.FRIEND_REQUEST_ACCEPTED, targetUserId);
       });
 
-      // Barát-kérelem visszavonása
+      // Ismerős-kérelem elutasítása
+      socket.on(SocketEvents.REJECT_FRIEND_REQUEST, (targetUserId: string) => {
+        console.log(`[Contact request rejected] ${ownUserId} -> ${targetUserId}`);
+
+        socket.to(targetUserId).emit(SocketEvents.FRIEND_REQUEST_REJECTED, ownUserId);
+        socket.to(ownUserId).emit(SocketEvents.FRIEND_REQUEST_REJECTED, targetUserId);
+      });
+
+      // Ismerős-kérelem visszavonása
       socket.on(SocketEvents.UNSEND_FRIEND_REQUEST, (targetUserId: string) => {
-        console.log(`${ownUserId} -> ${targetUserId}: Unsend friend`);
+        console.log(`[Contact request unsent] ${ownUserId} -> ${targetUserId}`);
 
         socket.to(targetUserId).emit(SocketEvents.FRIEND_REQUEST_UNSENT, ownUserId);
         socket.to(ownUserId).emit(SocketEvents.FRIEND_REQUEST_UNSENT, targetUserId);
       });
 
-      // Barát törlése
+      // Ismerős törlése
       socket.on(SocketEvents.REMOVE_FRIEND, (targetUserId: string) => {
-        console.log(`${ownUserId} -> ${targetUserId}: Remove friend`);
+        console.log(`[Contact removed] ${ownUserId} -> ${targetUserId}`);
 
         socket.to(targetUserId).emit(SocketEvents.FRIEND_REMOVED, ownUserId);
         socket.to(ownUserId).emit(SocketEvents.FRIEND_REMOVED, targetUserId);
