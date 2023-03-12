@@ -26,7 +26,7 @@ const UserMenu: React.FC<Props> = ({ setShowSettingsMenu }) => {
       name: "Profile",
       icon: "/icons/navbar/user-menu/Profile.svg",
       onClick: () => {
-        router.push("/profile");
+        router.push("#");
       },
     },
     {

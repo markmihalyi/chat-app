@@ -42,7 +42,7 @@ const Navbar: React.FC = () => {
         <UserMenu setShowSettingsMenu={setShowSettingsMenu} />
         <div
           className="flex h-14 w-14 items-center justify-center"
-          onClick={() => router.push("/profile")}
+          onClick={() => router.push("#")}
         >
           <Image
             className="cursor-pointer rounded-full"
