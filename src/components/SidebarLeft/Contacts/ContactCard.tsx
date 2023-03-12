@@ -13,14 +13,7 @@ type Props = {
 const ContactCard: React.FC<Props> = ({ contact, selected, setSelectedContact }) => {
   const handleSelect = () => {
     setSelectedContact(contact);
-    // TODO: Handle contact selection
   };
-
-  let classes = "flex cursor-pointer px-6 py-4 hover:bg-secondary-light select-none";
-
-  if (selected) {
-    classes += " bg-secondary-light";
-  }
 
   // lastMessage =
   //   lastMessage.length > 26
@@ -28,7 +21,12 @@ const ContactCard: React.FC<Props> = ({ contact, selected, setSelectedContact })
   //     : lastMessage;
 
   return (
-    <div className={classes} onClick={handleSelect}>
+    <div
+      className={`flex cursor-pointer select-none py-4 hover:bg-secondary-light xl:px-5 2xl:px-6 ${
+        selected ? "bg-secondary-light" : ""
+      }`}
+      onClick={handleSelect}
+    >
       <Image
         className="rounded-full border border-gray"
         src={contact?.image || "/icons/DefaultUser.png"}

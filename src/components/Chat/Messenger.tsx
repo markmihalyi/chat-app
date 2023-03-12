@@ -32,7 +32,7 @@ const Messenger: React.FC<Props> = ({ selectedUserId }) => {
   };
 
   return (
-    <div className="mx-auto flex flex-col rounded-xl border border-[#CDD5DE] xl:w-[600px]">
+    <div className="mx-auto flex flex-col rounded-xl border border-[#CDD5DE] xl:w-[500px] 2xl:w-[600px]">
       <input
         className="w-full select-none rounded-t-xl py-[14px] px-3 text-sm text-primary outline-none transition-all placeholder:text-[#8FA0AF] focus:bg-[#fcfcfc] hover:bg-[#fcfcfc]"
         type="text"

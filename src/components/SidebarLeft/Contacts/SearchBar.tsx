@@ -84,7 +84,7 @@ const SearchBar: React.FC<Props> = ({ setSearching, setFilteredUsers, setFiltere
 
   return (
     <form
-      className="flex h-8 w-60 items-center rounded-lg border border-gray px-2 shadow-sm"
+      className="flex h-8 items-center rounded-lg border border-gray px-2 shadow-sm 2xl:w-60"
       onSubmit={handleFormSubmit}
     >
       <Image

@@ -67,8 +67,8 @@ const Contacts: React.FC = () => {
   const [filteredContacts, setFilteredContacts] = React.useState<Array<Contact> | null>(null);
 
   return (
-    <div className="flex select-none flex-col 2xl:h-[844px]">
-      <div className="flex items-center justify-between border-light-2 py-3 px-4">
+    <div className="flex select-none flex-col">
+      <div className="flex items-center justify-between space-x-3 border-light-2 py-3 px-4">
         <SearchBar
           setSearching={setSearching}
           setFilteredUsers={setFilteredUsers}
@@ -77,7 +77,7 @@ const Contacts: React.FC = () => {
         <RequestsButton updateContacts={updateContacts} />
       </div>
       {!loading ? (
-        <div className="flex flex-col overflow-hidden">
+        <div className="flex flex-col overflow-auto scroll-smooth scrollbar-thin scrollbar-thumb-light-2 xl:h-[574px] 2xl:h-[774px]">
           {filteredUsers !== null || filteredContacts !== null ? (
             <>
               {filteredUsers?.length === 0 && filteredContacts?.length === 0 ? (
@@ -122,12 +122,116 @@ const Contacts: React.FC = () => {
             </>
           ) : searching === false ? (
             contacts?.map((contact) => (
-              <ContactCard
-                key={contact.id}
-                contact={contact}
-                selected={selectedContact.id === contact.id}
-                setSelectedContact={setSelectedContact}
-              />
+              <>
+                <ContactCard
+                  key={contact.id}
+                  contact={contact}
+                  selected={selectedContact.id === contact.id}
+                  setSelectedContact={setSelectedContact}
+                />
+                <ContactCard
+                  key={contact.id}
+                  contact={contact}
+                  selected={selectedContact.id === contact.id}
+                  setSelectedContact={setSelectedContact}
+                />
+                <ContactCard
+                  key={contact.id}
+                  contact={contact}
+                  selected={selectedContact.id === contact.id}
+                  setSelectedContact={setSelectedContact}
+                />
+                <ContactCard
+                  key={contact.id}
+                  contact={contact}
+                  selected={selectedContact.id === contact.id}
+                  setSelectedContact={setSelectedContact}
+                />
+                <ContactCard
+                  key={contact.id}
+                  contact={contact}
+                  selected={selectedContact.id === contact.id}
+                  setSelectedContact={setSelectedContact}
+                />
+                <ContactCard
+                  key={contact.id}
+                  contact={contact}
+                  selected={selectedContact.id === contact.id}
+                  setSelectedContact={setSelectedContact}
+                />
+                <ContactCard
+                  key={contact.id}
+                  contact={contact}
+                  selected={selectedContact.id === contact.id}
+                  setSelectedContact={setSelectedContact}
+                />
+                <ContactCard
+                  key={contact.id}
+                  contact={contact}
+                  selected={selectedContact.id === contact.id}
+                  setSelectedContact={setSelectedContact}
+                />
+                <ContactCard
+                  key={contact.id}
+                  contact={contact}
+                  selected={selectedContact.id === contact.id}
+                  setSelectedContact={setSelectedContact}
+                />
+                <ContactCard
+                  key={contact.id}
+                  contact={contact}
+                  selected={selectedContact.id === contact.id}
+                  setSelectedContact={setSelectedContact}
+                />
+                <ContactCard
+                  key={contact.id}
+                  contact={contact}
+                  selected={selectedContact.id === contact.id}
+                  setSelectedContact={setSelectedContact}
+                />
+                <ContactCard
+                  key={contact.id}
+                  contact={contact}
+                  selected={selectedContact.id === contact.id}
+                  setSelectedContact={setSelectedContact}
+                />
+                <ContactCard
+                  key={contact.id}
+                  contact={contact}
+                  selected={selectedContact.id === contact.id}
+                  setSelectedContact={setSelectedContact}
+                />
+                <ContactCard
+                  key={contact.id}
+                  contact={contact}
+                  selected={selectedContact.id === contact.id}
+                  setSelectedContact={setSelectedContact}
+                />
+                <ContactCard
+                  key={contact.id}
+                  contact={contact}
+                  selected={selectedContact.id === contact.id}
+                  setSelectedContact={setSelectedContact}
+                />
+                <ContactCard
+                  key={contact.id}
+                  contact={contact}
+                  selected={selectedContact.id === contact.id}
+                  setSelectedContact={setSelectedContact}
+                />
+                <ContactCard
+                  key={contact.id}
+                  contact={contact}
+                  selected={selectedContact.id === contact.id}
+                  setSelectedContact={setSelectedContact}
+                />
+                <ContactCard
+                  key={contact.id}
+                  contact={contact}
+                  selected={selectedContact.id === contact.id}
+                  setSelectedContact={setSelectedContact}
+                />
+              </>
             ))
           ) : (
             <Loading />

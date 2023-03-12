@@ -88,8 +88,8 @@ const Chat: React.FC = () => {
   }, [socket, isConnected, selectedContact]);
 
   return (
-    <div className="flex flex-col pb-10 xl:h-[840px] xl:w-[840px]">
-      <div className="mb-12 flex h-full flex-col-reverse overflow-y-auto scroll-smooth border-0 border-green-500 px-12 scrollbar-thin scrollbar-track-white scrollbar-thumb-light-2">
+    <div className="flex flex-col xl:h-[640px] xl:w-[727px] xl:pb-4 2xl:h-[840px] 2xl:w-[840px] 2xl:pb-10">
+      <div className="flex h-full flex-col-reverse overflow-y-auto scroll-smooth border-0 border-green-500 scrollbar-thin scrollbar-track-white scrollbar-thumb-light-2 xl:mb-6 xl:px-6 2xl:mb-12 2xl:px-12">
         {messages.map((message, index) => (
           <Message key={index} selectedContact={selectedContact} message={message} />
         ))}
