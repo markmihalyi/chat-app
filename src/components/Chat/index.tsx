@@ -94,7 +94,7 @@ const Chat: React.FC = () => {
           <Message key={index} selectedContact={selectedContact} message={message} />
         ))}
       </div>
-      <Messenger selectedUserId={selectedContact.id} socket={socket} />
+      <Messenger selectedUserId={selectedContact.id} />
     </div>
   );
 };

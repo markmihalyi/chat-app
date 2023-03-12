@@ -1,19 +1,21 @@
-import type { DefaultEventsMap } from "socket.io/dist/typed-events";
 import Image from "next/image";
 import React from "react";
-import type { Socket } from "socket.io-client";
 import SocketEvents from "common/providers/SocketProvider/types";
+import useSocket from "common/hooks/useSocket";
 
 type Props = {
   selectedUserId: string;
-  socket: Socket<DefaultEventsMap, DefaultEventsMap> | null;
 };
 
-const Messenger: React.FC<Props> = ({ socket, selectedUserId }) => {
+const Messenger: React.FC<Props> = ({ selectedUserId }) => {
+  const { socket } = useSocket();
+
   const [message, setMessage] = React.useState("");
 
   const sendMessage = () => {
-    if (message) {
+    const trimmedMessage = message.trim();
+
+    if (trimmedMessage.length > 0 && socket) {
       socket?.emit(SocketEvents.SEND_MESSAGE, message, selectedUserId);
       setMessage("");
     }
