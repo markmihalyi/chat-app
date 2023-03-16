@@ -40,7 +40,7 @@ const SocketContextProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       socketInitializer();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [data]);
 
   return (
     <SocketContext.Provider value={{ socket: socket.current, isConnected }}>

@@ -30,7 +30,7 @@ const Message: React.FC<Props> = ({ selectedContact, message }) => {
   return (
     <div className="my-1.5 flex items-center space-x-4">
       <Image
-        className="mt-1 self-start rounded-full"
+        className="mt-1 select-none self-start rounded-full"
         src={selectedContact.image}
         width={40}
         height={40}

@@ -43,8 +43,11 @@ const ContactContextProvider: React.FC<{ children: React.ReactNode }> = ({ child
   };
 
   React.useEffect(() => {
-    updateIncomingRequestCount();
-  }, []);
+    const userId = data?.user?.id;
+    if (userId) {
+      updateIncomingRequestCount();
+    }
+  }, [data]);
 
   const { socket } = useSocket();
 

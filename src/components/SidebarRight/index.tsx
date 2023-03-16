@@ -42,11 +42,11 @@ const SidebarRight: React.FC = () => {
 
       <div className="flex flex-col space-y-4">
         <div className="flex flex-col">
-          <span className="text-sm font-semibold">Username</span>
+          <span className="select-none text-sm font-semibold">Username</span>
           <span className="text-sm font-light">@{selectedContact.username}</span>
         </div>
         <div className="flex flex-col">
-          <span className="text-sm font-semibold">Bio</span>
+          <span className="select-none text-sm font-semibold">Bio</span>
           <span className="text-sm font-light">{selectedContact.bio}</span>
         </div>
       </div>
@@ -64,7 +64,7 @@ const SidebarRight: React.FC = () => {
       <div className="flex flex-col">
         <span
           onClick={() => setShowDeleteDialog(true)}
-          className="cursor-pointer text-sm text-red-500"
+          className="cursor-pointer select-none text-sm text-red-500"
         >
           Delete contact
         </span>

@@ -77,7 +77,7 @@ const Contacts: React.FC = () => {
         <RequestsButton updateContacts={updateContacts} />
       </div>
       {!loading ? (
-        <div className="flex flex-col overflow-auto scroll-smooth scrollbar-thin scrollbar-thumb-light-2 xl:h-[574px] 2xl:h-[774px]">
+        <div className="flex flex-col overflow-auto scroll-smooth border-y-2 border-light-1 scrollbar-thin scrollbar-thumb-light-2 xl:h-[574px] 2xl:h-[644px]">
           {filteredUsers !== null || filteredContacts !== null ? (
             <>
               {filteredUsers?.length === 0 && filteredContacts?.length === 0 ? (
