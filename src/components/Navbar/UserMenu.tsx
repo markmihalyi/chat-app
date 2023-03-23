@@ -26,7 +26,7 @@ const UserMenu: React.FC<Props> = ({ setShowSettingsMenu }) => {
       name: "Profile",
       icon: "/icons/navbar/user-menu/Profile.svg",
       onClick: () => {
-        router.push("/profile");
+        router.push("#");
       },
     },
     {
@@ -54,7 +54,7 @@ const UserMenu: React.FC<Props> = ({ setShowSettingsMenu }) => {
   ];
 
   return (
-    <Menu as="div" className="flex h-14 w-10 items-center justify-center">
+    <Menu as="div" className="mr-2 flex h-14 w-10 items-center justify-center lg:mr-0">
       <Menu.Button>
         <Image
           className="w-9 cursor-pointer rounded-full p-1 transition hover:bg-light-1 active:bg-light-2"
@@ -104,9 +104,10 @@ const UserMenu: React.FC<Props> = ({ setShowSettingsMenu }) => {
             <Menu.Item key={index}>
               <button
                 onClick={item.onClick}
-                className={`flex ${
-                  item.divider ? "border-b-[1px] border-divider" : ""
-                } p-3 hover:bg-secondary-light`}
+                className={`flex
+                ${item.divider ? "border-b border-divider" : ""}
+                p-3 hover:bg-secondary-light
+                ${index === MenuItems.length - 1 ? "rounded-b-xl" : ""}`}
               >
                 <Image
                   className="mr-2"

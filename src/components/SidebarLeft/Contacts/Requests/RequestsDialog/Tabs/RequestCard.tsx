@@ -26,7 +26,7 @@ const RequestCard: React.FC<Props> = ({ type, user, updateRequests }) => {
   if (!user.id) return null;
 
   return (
-    <div className="flex select-none px-6 py-4">
+    <div className="flex select-none px-6 py-4 hover:bg-[#fbfbfb]">
       <Image
         className="ml-2 rounded-full border border-gray"
         src={user.image}

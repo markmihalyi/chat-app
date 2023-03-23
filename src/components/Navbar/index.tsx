@@ -14,7 +14,7 @@ const Navbar: React.FC = () => {
 
   return (
     <div
-      className="isolate flex h-14 w-full justify-between rounded-t-2xl bg-white px-6"
+      className="isolate flex h-14 w-full justify-between bg-white px-4 drop-shadow-sm lg:rounded-t-2xl lg:px-6"
       style={{ boxShadow: "0px 1px 2px rgba(2, 17, 37, 0.12)" }}
     >
       {/* Top left corner */}
@@ -26,8 +26,8 @@ const Navbar: React.FC = () => {
         <h1 className="ml-4 text-xl font-bold text-secondary-dark">Chat App</h1>
       </div>
       {/* Top right corner */}
-      <div className="flex h-full select-none items-center">
-        <div className="flex h-14 w-10 items-center justify-center">
+      <div className="flex h-full items-center">
+        <div className="hidden h-14 items-center justify-center md:flex lg:w-10">
           <Image
             className="w-9 cursor-pointer rounded-full p-1 transition hover:bg-light-1 active:bg-light-2"
             src="/icons/navbar/Settings.svg"
@@ -41,8 +41,8 @@ const Navbar: React.FC = () => {
         </div>
         <UserMenu setShowSettingsMenu={setShowSettingsMenu} />
         <div
-          className="flex h-14 w-14 items-center justify-center"
-          onClick={() => router.push("/profile")}
+          className="flex h-14 w-8 items-center justify-center lg:w-14"
+          onClick={() => router.push("#")}
         >
           <Image
             className="cursor-pointer rounded-full"

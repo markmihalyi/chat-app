@@ -5,8 +5,6 @@ import TabMenu, { tabs } from "./TabMenu";
 type Props = {
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
-  requestCount: number;
-  setRequestCount: React.Dispatch<React.SetStateAction<number>>;
   updateContacts: () => Promise<void>;
 };
 
@@ -14,18 +12,9 @@ export type TabId = "incoming" | "outgoing";
 
 type TabComponentProps = {
   key: TabId;
-  updateContacts: () => Promise<void>;
-  requestCount?: number;
-  setRequestCount?: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const RequestsDialog: React.FC<Props> = ({
-  show,
-  setShow,
-  requestCount,
-  setRequestCount,
-  updateContacts,
-}) => {
+const RequestsDialog: React.FC<Props> = ({ show, setShow }) => {
   const [selectedTab, setSelectedTab] = React.useState<TabId>("incoming");
 
   return (
@@ -55,19 +44,11 @@ const RequestsDialog: React.FC<Props> = ({
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="flex h-[450px] w-[600px] transform select-none overflow-hidden rounded-2xl bg-white text-left text-secondary-dark shadow-xl transition-all">
-                <TabMenu
-                  selectedTab={selectedTab}
-                  setSelectedTab={setSelectedTab}
-                  requestCount={requestCount}
-                />
+                <TabMenu selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
 
                 {tabs.map((tab) => {
                   if (tab.id === selectedTab) {
-                    const tabComponentProps: TabComponentProps = { key: tab.id, updateContacts };
-                    if (tab.id === "incoming") {
-                      tabComponentProps.requestCount = requestCount;
-                      tabComponentProps.setRequestCount = setRequestCount;
-                    }
+                    const tabComponentProps: TabComponentProps = { key: tab.id };
 
                     const tabComponent = React.cloneElement(tab.component, tabComponentProps);
                     return <React.Fragment key={tab.id}>{tabComponent}</React.Fragment>;

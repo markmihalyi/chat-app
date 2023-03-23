@@ -6,28 +6,25 @@ import React from "react";
 import type { ReactNode } from "react";
 import RequestsButton from "./Requests/RequestsButton";
 import SearchBar from "./SearchBar";
+import SocketEvents from "common/providers/SocketProvider/types";
 import UserCard from "./UserCard";
 import axios from "axios";
-import useContact from "common/hooks/useContact";
-import { useSession } from "next-auth/react";
+import useContacts from "common/hooks/useContacts";
+import useSocket from "common/hooks/useSocket";
 
 const Contacts: React.FC = () => {
   const [rows, setRows] = React.useState<Array<ReactNode>>([]);
 
-  const { data } = useSession();
-
+  const { contactCount } = useContacts();
   React.useEffect(() => {
-    if (data) {
-      const contactCount = data.user?.contactCount || 0;
-      const rows: Array<ReactNode> = [];
-      for (let i = 0; i < contactCount; i++) {
-        rows.push(<CardSkeleton />);
-      }
-      setRows(rows);
+    const rows: Array<ReactNode> = [];
+    for (let i = 0; i < contactCount; i++) {
+      rows.push(<CardSkeleton />);
     }
-  }, [data]);
+    setRows(rows);
+  }, [contactCount]);
 
-  const { contacts, setContacts, selectedContact, setSelectedContact } = useContact();
+  const { contacts, setContacts, selectedContact, setSelectedContact } = useContacts();
 
   const [loading, setLoading] = React.useState<boolean>(true);
   const [searching, setSearching] = React.useState<boolean>(false);
@@ -40,13 +37,24 @@ const Contacts: React.FC = () => {
     const contactCount = data.length;
     const rows: Array<ReactNode> = [];
     for (let i = 0; i < contactCount; i++) {
-      rows.push(<CardSkeleton />);
+      rows.push(<CardSkeleton key={i} />);
     }
     setRows(rows);
 
     setContacts(data);
     setLoading(false);
   };
+
+  const { socket } = useSocket();
+  React.useEffect(() => {
+    if (socket) {
+      socket.on(SocketEvents.FRIEND_REMOVED, () => {
+        updateContacts();
+        setSelectedContact({ id: "", name: "", username: "", image: "" });
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [socket]);
 
   React.useEffect(() => {
     if (contacts === null) {
@@ -59,8 +67,8 @@ const Contacts: React.FC = () => {
   const [filteredContacts, setFilteredContacts] = React.useState<Array<Contact> | null>(null);
 
   return (
-    <div className="flex select-none flex-col 2xl:h-[844px]">
-      <div className="flex items-center justify-between border-light-2 py-3 px-4">
+    <div className="flex h-[91vh] select-none flex-col md:h-[92vh] 2xl:h-[84vh]">
+      <div className="flex items-center justify-between space-x-6 border-b-2 border-light-1 px-2 py-3 md:space-x-2 lg:px-2 xl:space-x-3 xl:px-4">
         <SearchBar
           setSearching={setSearching}
           setFilteredUsers={setFilteredUsers}
@@ -69,7 +77,7 @@ const Contacts: React.FC = () => {
         <RequestsButton updateContacts={updateContacts} />
       </div>
       {!loading ? (
-        <div className="flex flex-col overflow-hidden">
+        <div className="flex flex-col overflow-auto scroll-smooth pr-3 pl-2 scrollbar-thin scrollbar-thumb-light-2 lg:pl-0 lg:pr-1 xl:pr-0">
           {filteredUsers !== null || filteredContacts !== null ? (
             <>
               {filteredUsers?.length === 0 && filteredContacts?.length === 0 ? (
@@ -78,7 +86,7 @@ const Contacts: React.FC = () => {
                 </div>
               ) : (
                 <>
-                  <h3 className="ml-6 mt-2 select-none font-semibold">Others</h3>
+                  <h3 className="mt-2 select-none font-semibold lg:ml-4">Others</h3>
                   {filteredUsers && filteredUsers?.length > 0 ? (
                     <div className="flex min-h-[72px] flex-col overflow-y-auto">
                       {filteredUsers?.map((contact) => (
@@ -92,7 +100,7 @@ const Contacts: React.FC = () => {
                   )}
 
                   <hr className="mt-4 text-light-2" />
-                  <h3 className="ml-6 mt-2 select-none font-semibold">Contacts</h3>
+                  <h3 className="mt-2 select-none font-semibold lg:ml-4">Contacts</h3>
                   {filteredContacts && filteredContacts?.length > 0 ? (
                     <div className="flex min-h-[72px] flex-col overflow-y-auto">
                       {filteredContacts?.map((contact) => (
@@ -126,7 +134,7 @@ const Contacts: React.FC = () => {
           )}
         </div>
       ) : (
-        rows.map((row, index) => <CardSkeleton key={index} />)
+        rows.map((row) => row)
       )}
     </div>
   );

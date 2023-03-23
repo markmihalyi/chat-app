@@ -1,10 +1,10 @@
 import DeleteDialog from "components/SidebarRight/DeleteDialog";
 import Image from "next/image";
 import React from "react";
-import useContact from "common/hooks/useContact";
+import useContacts from "common/hooks/useContacts";
 
 const SidebarRight: React.FC = () => {
-  const { selectedContact } = useContact();
+  const { selectedContact } = useContacts();
 
   const [showDeleteDialog, setShowDeleteDialog] = React.useState<boolean>(false);
 
@@ -12,7 +12,7 @@ const SidebarRight: React.FC = () => {
 
   return (
     <div
-      className="rounded-tl-2xl border-l border-l-[#CDD5DE] bg-white px-6 pt-4 xl:w-[280px]"
+      className="h-full border-l border-l-[#CDD5DE] bg-white px-6 pt-4 md:hidden lg:col-span-2 lg:block lg:rounded-br-2xl xl:col-span-2"
       style={{
         boxShadow:
           "0px 0px 4px rgba(2, 17, 37, 0.08), -2px 0px 8px rgba(2, 17, 37, 0.08), -6px 0px 16px rgba(2, 17, 37, 0.04)",
@@ -42,11 +42,11 @@ const SidebarRight: React.FC = () => {
 
       <div className="flex flex-col space-y-4">
         <div className="flex flex-col">
-          <span className="text-sm font-semibold">Username</span>
+          <span className="select-none text-sm font-semibold">Username</span>
           <span className="text-sm font-light">@{selectedContact.username}</span>
         </div>
         <div className="flex flex-col">
-          <span className="text-sm font-semibold">Bio</span>
+          <span className="select-none text-sm font-semibold">Bio</span>
           <span className="text-sm font-light">{selectedContact.bio}</span>
         </div>
       </div>
@@ -64,7 +64,7 @@ const SidebarRight: React.FC = () => {
       <div className="flex flex-col">
         <span
           onClick={() => setShowDeleteDialog(true)}
-          className="cursor-pointer text-sm text-red-500"
+          className="cursor-pointer select-none text-sm text-red-500"
         >
           Delete contact
         </span>

@@ -1,6 +1,8 @@
 import Image from "next/image";
 import React from "react";
+import SocketEvents from "common/providers/SocketProvider/types";
 import axios from "axios";
+import useSocket from "common/hooks/useSocket";
 
 type Props = {
   contactId: string;
@@ -10,6 +12,8 @@ type Props = {
 };
 
 const DeclineButton: React.FC<Props> = ({ contactId, loading, setLoading, updateRequests }) => {
+  const { socket } = useSocket();
+
   const [showLoadingCircle, setShowLoadingCircle] = React.useState<boolean>(false);
 
   const setLoadingStates = (state: boolean) => {
@@ -23,6 +27,7 @@ const DeclineButton: React.FC<Props> = ({ contactId, loading, setLoading, update
     try {
       setLoadingStates(true);
       await axios.put("/api/v1/contacts/requests/decline", { contactId });
+      socket?.emit(SocketEvents.REJECT_FRIEND_REQUEST, contactId);
       await updateRequests();
       setLoadingStates(false);
     } catch (error) {

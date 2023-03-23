@@ -1,8 +1,10 @@
 import type { Contact } from "common/providers/ContactProvider/types";
 import Image from "next/image";
 import React from "react";
+import SocketEvents from "common/providers/SocketProvider/types";
 import axios from "axios";
-import useContact from "common/hooks/useContact";
+import useContacts from "common/hooks/useContacts";
+import useSocket from "common/hooks/useSocket";
 
 type Props = {
   setSearching: React.Dispatch<React.SetStateAction<boolean>>;
@@ -11,7 +13,7 @@ type Props = {
 };
 
 const SearchBar: React.FC<Props> = ({ setSearching, setFilteredUsers, setFilteredContacts }) => {
-  const { setContacts } = useContact();
+  const { setContacts } = useContacts();
 
   const [searchInput, setSearchInput] = React.useState<string>("");
 
@@ -22,28 +24,50 @@ const SearchBar: React.FC<Props> = ({ setSearching, setFilteredUsers, setFiltere
     setContacts(null);
   };
 
+  const updateSearchResult = async () => {
+    try {
+      setSearching(true);
+      const res = await axios.get("/api/v1/contacts/search", {
+        params: {
+          val: searchInput,
+        },
+      });
+      const { users, contacts } = res.data;
+      setFilteredUsers(users);
+      setFilteredContacts(contacts);
+      setSearching(false);
+    } catch (err) {
+      setSearching(false);
+    }
+  };
+
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setSearchInput(searchInput.trim());
+    const searchInputTrimmed = searchInput.trim();
+    setSearchInput(searchInputTrimmed);
 
-    if (searchInput.length < 1 || searchInput.length > 20) return;
+    if (searchInputTrimmed.length < 1 || searchInputTrimmed.length > 20) return;
 
     setFilteredUsers(null);
     setFilteredContacts(null);
 
-    setSearching(true);
-    const res = await axios.get("/api/v1/contacts/search", {
-      params: {
-        val: searchInput,
-      },
-    });
-
-    const { users, contacts } = res.data;
-    setFilteredUsers(users);
-    setFilteredContacts(contacts);
-    setSearching(false);
+    await updateSearchResult();
   };
+
+  const { socket } = useSocket();
+  React.useEffect(() => {
+    if (socket) {
+      socket.on(SocketEvents.FRIEND_REQUEST_ACCEPTED, () => {
+        clearInput();
+      });
+
+      socket.on(SocketEvents.FRIEND_REQUEST_UNSENT, () => {
+        clearInput();
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [socket]);
 
   React.useEffect(() => {
     if (searchInput.length === 0) {
@@ -60,14 +84,14 @@ const SearchBar: React.FC<Props> = ({ setSearching, setFilteredUsers, setFiltere
 
   return (
     <form
-      className="flex h-8 w-60 items-center rounded-lg border border-gray px-2 shadow-sm"
+      className="flex h-8 w-full items-center rounded-lg border border-gray px-2 shadow-sm"
       onSubmit={handleFormSubmit}
     >
       <Image
         src="/icons/sidebar-left/Search.svg"
         alt="Search"
-        width={20}
-        height={20}
+        width={25}
+        height={25}
         draggable={false}
       />
       <input

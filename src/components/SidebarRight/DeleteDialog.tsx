@@ -1,10 +1,11 @@
 import { Dialog, Transition } from "@headlessui/react";
 
-import type { Contact } from "common/providers/ContactProvider/types";
 import Image from "next/image";
 import React from "react";
+import SocketEvents from "common/providers/SocketProvider/types";
 import axios from "axios";
-import useContact from "common/hooks/useContact";
+import useContacts from "common/hooks/useContacts";
+import useSocket from "common/hooks/useSocket";
 
 type Props = {
   contactId: string;
@@ -13,17 +14,17 @@ type Props = {
 };
 
 const DeleteDialog: React.FC<Props> = ({ contactId, show, setShow }) => {
-  const { setContacts, setSelectedContact } = useContact();
+  const { socket } = useSocket();
+
+  const { setSelectedContact } = useContacts();
   const [loading, setLoading] = React.useState<boolean>(true);
 
   const handleDelete = async () => {
     try {
       setLoading(true);
       await axios.put("/api/v1/contacts/delete", { contactId });
-      const res = await axios.get("/api/v1/contacts/list");
-      const data: Array<Contact> = res.data;
+      socket?.emit(SocketEvents.REMOVE_FRIEND, contactId);
       setSelectedContact({ id: "", name: "", username: "", image: "" });
-      setContacts(data);
       setShow(false);
     } catch (err) {
       console.log(err);
@@ -64,7 +65,7 @@ const DeleteDialog: React.FC<Props> = ({ contactId, show, setShow }) => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel
-                className="flex transform select-none flex-col items-start overflow-hidden rounded-xl border border-[#EEF1F4] bg-white p-3.5 text-left text-secondary-dark transition-all xl:w-[280px]"
+                className="flex w-[280px] transform select-none flex-col items-start overflow-hidden rounded-xl border border-[#EEF1F4] bg-white p-3.5 text-left text-secondary-dark transition-all"
                 style={{
                   boxShadow:
                     "0px 4px 12px rgba(2, 17, 37, 0.12), 0px 8px 24px rgba(2, 17, 37, 0.08), 0px 24px 64px rgba(2, 17, 37, 0.04",
@@ -86,7 +87,7 @@ const DeleteDialog: React.FC<Props> = ({ contactId, show, setShow }) => {
 
                 <div className="flex h-8 w-full justify-end space-x-2">
                   <button
-                    className="flex items-center rounded-lg border border-[#CDD5DE] bg-white py-1.5 px-3 text-sm font-semibold text-[#0E1114] hover:bg-[#F3F4F6] focus:outline-none active:bg-[#ebecee]"
+                    className="flex items-center rounded-lg border border-[#CDD5DE] bg-white py-1.5 px-3 text-sm font-semibold text-[#0E1114] focus:outline-none hover:bg-[#F3F4F6] active:bg-[#ebecee]"
                     onClick={() => setShow(false)}
                   >
                     Cancel
