@@ -65,7 +65,7 @@ const DeleteDialog: React.FC<Props> = ({ contactId, show, setShow }) => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel
-                className="flex transform select-none flex-col items-start overflow-hidden rounded-xl border border-[#EEF1F4] bg-white p-3.5 text-left text-secondary-dark transition-all xl:w-[280px]"
+                className="flex w-[280px] transform select-none flex-col items-start overflow-hidden rounded-xl border border-[#EEF1F4] bg-white p-3.5 text-left text-secondary-dark transition-all"
                 style={{
                   boxShadow:
                     "0px 4px 12px rgba(2, 17, 37, 0.12), 0px 8px 24px rgba(2, 17, 37, 0.08), 0px 24px 64px rgba(2, 17, 37, 0.04",

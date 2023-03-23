@@ -19,7 +19,7 @@ const Message: React.FC<Props> = ({ selectedContact, message }) => {
       <div className="my-1.5 flex items-center justify-end">
         <div className="flex flex-col items-start">
           <div className="rounded-t-2xl rounded-bl-2xl bg-[#e9f2fd]">
-            <p className="p-3 text-base">{message.text}</p>
+            <p className="p-3 text-sm lg:text-base">{message.text}</p>
           </div>
           {/* <p className="mt-0.5 self-end text-xs text-secondary">{hhss}</p> */}
         </div>
@@ -38,7 +38,7 @@ const Message: React.FC<Props> = ({ selectedContact, message }) => {
       />
       <div className="flex flex-col items-start">
         <div className="rounded-2xl bg-[#eef1f4]">
-          <p className="p-3 text-base">{message.text}</p>
+          <p className="p-3 text-sm lg:text-base">{message.text}</p>
         </div>
         {/* <p className="mt-0.5 text-xs text-secondary">{hhss}</p> */}
       </div>

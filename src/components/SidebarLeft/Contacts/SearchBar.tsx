@@ -84,14 +84,14 @@ const SearchBar: React.FC<Props> = ({ setSearching, setFilteredUsers, setFiltere
 
   return (
     <form
-      className="flex h-8 items-center rounded-lg border border-gray px-2 shadow-sm 2xl:w-60"
+      className="flex h-8 w-full items-center rounded-lg border border-gray px-2 shadow-sm"
       onSubmit={handleFormSubmit}
     >
       <Image
         src="/icons/sidebar-left/Search.svg"
         alt="Search"
-        width={20}
-        height={20}
+        width={25}
+        height={25}
         draggable={false}
       />
       <input

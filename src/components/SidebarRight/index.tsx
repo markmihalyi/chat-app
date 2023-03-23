@@ -12,7 +12,7 @@ const SidebarRight: React.FC = () => {
 
   return (
     <div
-      className="rounded-br-2xl border-l border-l-[#CDD5DE] bg-white px-6 pt-4 xl:w-[240px] 2xl:w-[280px]"
+      className="h-full border-l border-l-[#CDD5DE] bg-white px-6 pt-4 md:hidden lg:col-span-2 lg:block lg:rounded-br-2xl xl:col-span-2"
       style={{
         boxShadow:
           "0px 0px 4px rgba(2, 17, 37, 0.08), -2px 0px 8px rgba(2, 17, 37, 0.08), -6px 0px 16px rgba(2, 17, 37, 0.04)",

@@ -37,7 +37,7 @@ const Contacts: React.FC = () => {
     const contactCount = data.length;
     const rows: Array<ReactNode> = [];
     for (let i = 0; i < contactCount; i++) {
-      rows.push(<CardSkeleton />);
+      rows.push(<CardSkeleton key={i} />);
     }
     setRows(rows);
 
@@ -67,8 +67,8 @@ const Contacts: React.FC = () => {
   const [filteredContacts, setFilteredContacts] = React.useState<Array<Contact> | null>(null);
 
   return (
-    <div className="flex select-none flex-col">
-      <div className="flex items-center justify-between space-x-3 border-light-2 py-3 px-4">
+    <div className="flex h-[91vh] select-none flex-col md:h-[92vh] 2xl:h-[84vh]">
+      <div className="flex items-center justify-between space-x-6 border-b-2 border-light-1 px-2 py-3 md:space-x-2 lg:px-2 xl:space-x-3 xl:px-4">
         <SearchBar
           setSearching={setSearching}
           setFilteredUsers={setFilteredUsers}
@@ -77,7 +77,7 @@ const Contacts: React.FC = () => {
         <RequestsButton updateContacts={updateContacts} />
       </div>
       {!loading ? (
-        <div className="flex flex-col overflow-auto scroll-smooth border-y-2 border-light-1 scrollbar-thin scrollbar-thumb-light-2 xl:h-[574px] 2xl:h-[644px]">
+        <div className="flex flex-col overflow-auto scroll-smooth pr-3 pl-2 scrollbar-thin scrollbar-thumb-light-2 lg:pl-0 lg:pr-1 xl:pr-0">
           {filteredUsers !== null || filteredContacts !== null ? (
             <>
               {filteredUsers?.length === 0 && filteredContacts?.length === 0 ? (
@@ -86,7 +86,7 @@ const Contacts: React.FC = () => {
                 </div>
               ) : (
                 <>
-                  <h3 className="ml-6 mt-2 select-none font-semibold">Others</h3>
+                  <h3 className="mt-2 select-none font-semibold lg:ml-4">Others</h3>
                   {filteredUsers && filteredUsers?.length > 0 ? (
                     <div className="flex min-h-[72px] flex-col overflow-y-auto">
                       {filteredUsers?.map((contact) => (
@@ -100,7 +100,7 @@ const Contacts: React.FC = () => {
                   )}
 
                   <hr className="mt-4 text-light-2" />
-                  <h3 className="ml-6 mt-2 select-none font-semibold">Contacts</h3>
+                  <h3 className="mt-2 select-none font-semibold lg:ml-4">Contacts</h3>
                   {filteredContacts && filteredContacts?.length > 0 ? (
                     <div className="flex min-h-[72px] flex-col overflow-y-auto">
                       {filteredContacts?.map((contact) => (
@@ -122,123 +122,19 @@ const Contacts: React.FC = () => {
             </>
           ) : searching === false ? (
             contacts?.map((contact) => (
-              <>
-                <ContactCard
-                  key={contact.id}
-                  contact={contact}
-                  selected={selectedContact.id === contact.id}
-                  setSelectedContact={setSelectedContact}
-                />
-                <ContactCard
-                  key={contact.id}
-                  contact={contact}
-                  selected={selectedContact.id === contact.id}
-                  setSelectedContact={setSelectedContact}
-                />
-                <ContactCard
-                  key={contact.id}
-                  contact={contact}
-                  selected={selectedContact.id === contact.id}
-                  setSelectedContact={setSelectedContact}
-                />
-                <ContactCard
-                  key={contact.id}
-                  contact={contact}
-                  selected={selectedContact.id === contact.id}
-                  setSelectedContact={setSelectedContact}
-                />
-                <ContactCard
-                  key={contact.id}
-                  contact={contact}
-                  selected={selectedContact.id === contact.id}
-                  setSelectedContact={setSelectedContact}
-                />
-                <ContactCard
-                  key={contact.id}
-                  contact={contact}
-                  selected={selectedContact.id === contact.id}
-                  setSelectedContact={setSelectedContact}
-                />
-                <ContactCard
-                  key={contact.id}
-                  contact={contact}
-                  selected={selectedContact.id === contact.id}
-                  setSelectedContact={setSelectedContact}
-                />
-                <ContactCard
-                  key={contact.id}
-                  contact={contact}
-                  selected={selectedContact.id === contact.id}
-                  setSelectedContact={setSelectedContact}
-                />
-                <ContactCard
-                  key={contact.id}
-                  contact={contact}
-                  selected={selectedContact.id === contact.id}
-                  setSelectedContact={setSelectedContact}
-                />
-                <ContactCard
-                  key={contact.id}
-                  contact={contact}
-                  selected={selectedContact.id === contact.id}
-                  setSelectedContact={setSelectedContact}
-                />
-                <ContactCard
-                  key={contact.id}
-                  contact={contact}
-                  selected={selectedContact.id === contact.id}
-                  setSelectedContact={setSelectedContact}
-                />
-                <ContactCard
-                  key={contact.id}
-                  contact={contact}
-                  selected={selectedContact.id === contact.id}
-                  setSelectedContact={setSelectedContact}
-                />
-                <ContactCard
-                  key={contact.id}
-                  contact={contact}
-                  selected={selectedContact.id === contact.id}
-                  setSelectedContact={setSelectedContact}
-                />
-                <ContactCard
-                  key={contact.id}
-                  contact={contact}
-                  selected={selectedContact.id === contact.id}
-                  setSelectedContact={setSelectedContact}
-                />
-                <ContactCard
-                  key={contact.id}
-                  contact={contact}
-                  selected={selectedContact.id === contact.id}
-                  setSelectedContact={setSelectedContact}
-                />
-                <ContactCard
-                  key={contact.id}
-                  contact={contact}
-                  selected={selectedContact.id === contact.id}
-                  setSelectedContact={setSelectedContact}
-                />
-                <ContactCard
-                  key={contact.id}
-                  contact={contact}
-                  selected={selectedContact.id === contact.id}
-                  setSelectedContact={setSelectedContact}
-                />
-                <ContactCard
-                  key={contact.id}
-                  contact={contact}
-                  selected={selectedContact.id === contact.id}
-                  setSelectedContact={setSelectedContact}
-                />
-              </>
+              <ContactCard
+                key={contact.id}
+                contact={contact}
+                selected={selectedContact.id === contact.id}
+                setSelectedContact={setSelectedContact}
+              />
             ))
           ) : (
             <Loading />
           )}
         </div>
       ) : (
-        rows.map((row, index) => <CardSkeleton key={index} />)
+        rows.map((row) => row)
       )}
     </div>
   );

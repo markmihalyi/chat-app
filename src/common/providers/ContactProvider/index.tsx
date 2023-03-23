@@ -11,6 +11,7 @@ export type ContactContextType = {
   contactCount: number;
   selectedContact: Contact;
   setSelectedContact: React.Dispatch<React.SetStateAction<Contact>>;
+  resetSelectedContact: () => void;
   incomingRequestCount: number;
   setIncomingRequestCount: React.Dispatch<React.SetStateAction<number>>;
 };
@@ -34,6 +35,15 @@ const ContactContextProvider: React.FC<{ children: React.ReactNode }> = ({ child
     username: "",
     image: "",
   });
+
+  const resetSelectedContact = () => {
+    setSelectedContact({
+      id: "",
+      name: "",
+      username: "",
+      image: "",
+    });
+  };
 
   const [incomingRequestCount, setIncomingRequestCount] = React.useState<number>(0);
 
@@ -71,6 +81,7 @@ const ContactContextProvider: React.FC<{ children: React.ReactNode }> = ({ child
         contactCount,
         selectedContact,
         setSelectedContact,
+        resetSelectedContact,
         incomingRequestCount,
         setIncomingRequestCount,
       }}

@@ -1,6 +1,8 @@
 import Message from "components/Chat/Message";
 import Messenger from "components/Chat/Messenger";
+import MobileChatHeader from "components/Chat/MobileChatHeader";
 import React from "react";
+import SidebarRight from "components/SidebarRight";
 import SocketEvents from "common/providers/SocketProvider/types";
 import useContacts from "common/hooks/useContacts";
 import useSocket from "common/hooks/useSocket";
@@ -78,7 +80,10 @@ const Chat: React.FC = () => {
     },
   ]);
 
+  const [showMenu, setShowMenu] = React.useState(false);
+
   // TODO: Fetch previous messages from the server
+
   React.useEffect(() => {
     if (isConnected && selectedContact) {
       socket?.on(SocketEvents.NEW_MESSAGE, (message: ChatMessage) => {
@@ -88,13 +93,24 @@ const Chat: React.FC = () => {
   }, [socket, isConnected, selectedContact]);
 
   return (
-    <div className="flex flex-col xl:h-[640px] xl:w-[727px] xl:pb-4 2xl:h-[714px] 2xl:w-[840px] 2xl:pb-6">
-      <div className="flex h-full flex-col-reverse overflow-y-auto scroll-smooth border-0 border-green-500 scrollbar-thin scrollbar-track-white scrollbar-thumb-light-2 xl:mb-6 xl:px-6 2xl:mb-8 2xl:px-12">
-        {messages.map((message, index) => (
-          <Message key={index} selectedContact={selectedContact} message={message} />
-        ))}
-      </div>
-      <Messenger selectedUserId={selectedContact.id} />
+    <div className="flex h-[91vh] flex-col pb-1 md:col-span-8 md:h-[92vh] lg:col-span-7 lg:pb-2 xl:col-span-5 2xl:col-span-6 2xl:h-[85vh]">
+      <MobileChatHeader
+        selectedContact={selectedContact}
+        showMenu={showMenu}
+        setShowMenu={setShowMenu}
+      />
+      {showMenu ? (
+        <SidebarRight />
+      ) : (
+        <>
+          <div className="mb-2 flex h-full flex-col-reverse overflow-y-auto scroll-smooth border-0 border-green-500 px-3 scrollbar-thin scrollbar-track-white scrollbar-thumb-light-2 md:mb-4 lg:px-6 2xl:mb-6 2xl:px-12">
+            {messages.map((message, index) => (
+              <Message key={index} selectedContact={selectedContact} message={message} />
+            ))}
+          </div>
+          <Messenger selectedUserId={selectedContact.id} />
+        </>
+      )}
     </div>
   );
 };

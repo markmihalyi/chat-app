@@ -22,7 +22,7 @@ const ContactCard: React.FC<Props> = ({ contact, selected, setSelectedContact })
 
   return (
     <div
-      className={`flex cursor-pointer select-none py-4 hover:bg-secondary-light xl:px-5 2xl:px-6 ${
+      className={`-mr-1 flex cursor-pointer select-none py-4 pr-0.5 hover:bg-secondary-light lg:-mr-0 lg:px-2 xl:px-4 2xl:px-4 ${
         selected ? "bg-secondary-light" : ""
       }`}
       onClick={handleSelect}

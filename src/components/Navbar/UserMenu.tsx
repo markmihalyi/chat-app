@@ -54,7 +54,7 @@ const UserMenu: React.FC<Props> = ({ setShowSettingsMenu }) => {
   ];
 
   return (
-    <Menu as="div" className="flex h-14 w-10 items-center justify-center">
+    <Menu as="div" className="mr-2 flex h-14 w-10 items-center justify-center lg:mr-0">
       <Menu.Button>
         <Image
           className="w-9 cursor-pointer rounded-full p-1 transition hover:bg-light-1 active:bg-light-2"
