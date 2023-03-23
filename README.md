@@ -92,7 +92,6 @@
   <ul>
     <li><a href="https://www.typescriptlang.org/">Typescript</a></li>
     <li><a href="https://nextjs.org/">Next.js</a></li>
-    <li><a href="https://trpc.io/">tRPC</a></li>
     <li><a href="https://socket.io/">Socket.io</a></li>
     <li><a href="https://www.prisma.io/">Prisma</a></li>    
   </ul>
