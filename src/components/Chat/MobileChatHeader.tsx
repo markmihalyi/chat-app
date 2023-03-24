@@ -34,7 +34,7 @@ const MobileChatHeader: React.FC<Props> = ({ selectedContact, showMenu, setShowM
         >
           <Image src="/icons/chat/ArrowLeft.svg" alt="Back" width={20} height={20} />
         </button>
-        <div className="flex flex-col">
+        <div className="flex flex-col items-center">
           <p className="text-sm font-medium">{selectedContact.name}</p>
           <p className="text-xs text-secondary">Online</p>
         </div>

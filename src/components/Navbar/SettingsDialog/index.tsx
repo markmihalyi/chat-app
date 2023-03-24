@@ -38,7 +38,7 @@ const SettingsDialog: React.FC<Props> = ({ show, setShow }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="flex h-[450px] w-[900px] transform select-none overflow-hidden rounded-2xl bg-white text-left text-secondary-dark shadow-xl transition-all">
+              <Dialog.Panel className="flex w-[95vw] transform select-none flex-col overflow-hidden rounded-2xl bg-white text-left text-secondary-dark shadow-xl transition-all sm:h-[450px] sm:w-[900px] sm:flex-row">
                 <TabMenu selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
 
                 {tabs.map((tab) => {

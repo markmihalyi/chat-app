@@ -34,7 +34,7 @@ export const tabs: Array<Tab> = [
 const TabMenu: React.FC<Props> = ({ selectedTab, setSelectedTab }) => {
   return (
     <div
-      className="flex h-full flex-col rounded-l-2xl border-r-[1px] border-divider bg-[#f6f6f6] py-8"
+      className="flex h-full flex-col rounded-l-2xl border-r border-divider bg-[#f6f6f6] pt-4 sm:py-8"
       style={{
         boxShadow:
           "0px 0px 2px rgba(2, 17, 37, 0.04), 1px 0px 4px rgba(2, 17, 37, 0.04), 3px 0px 8px rgba(2, 17, 37, 0.04)",
