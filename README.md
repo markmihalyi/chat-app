@@ -14,9 +14,7 @@
   <a href="https://github.com/markmihalyi/chat-app/graphs/contributors">
     <img src="https://img.shields.io/github/contributors/markmihalyi/chat-app" alt="contributors" />
   </a>
-  <a href="">
-    <img src="https://img.shields.io/github/last-commit/markmihalyi/chat-app" alt="last update" />
-  </a>
+  <img src="https://img.shields.io/github/last-commit/markmihalyi/chat-app" alt="last update" />
   <a href="https://github.com/markmihalyi/chat-app/network/members">
     <img src="https://img.shields.io/github/forks/markmihalyi/chat-app" alt="forks" />
   </a>
