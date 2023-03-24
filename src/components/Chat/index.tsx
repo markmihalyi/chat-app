@@ -93,7 +93,7 @@ const Chat: React.FC = () => {
   }, [socket, isConnected, selectedContact]);
 
   return (
-    <div className="flex h-[91vh] flex-col pb-1 md:col-span-8 md:h-[92vh] lg:col-span-7 lg:pb-2 xl:col-span-5 2xl:col-span-6 2xl:h-[85vh]">
+    <div className="flex h-[80vh] flex-col pb-1 md:col-span-8 md:h-[92vh] lg:col-span-7 lg:pb-2 xl:col-span-5 2xl:col-span-6 2xl:h-[85vh]">
       <MobileChatHeader
         selectedContact={selectedContact}
         showMenu={showMenu}

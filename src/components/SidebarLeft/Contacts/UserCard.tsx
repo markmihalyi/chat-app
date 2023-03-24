@@ -11,7 +11,7 @@ const UserCard: React.FC<Props> = ({ contact }) => {
   if (!contact.id) return null;
 
   return (
-    <div className="flex select-none px-6 py-4">
+    <div className="flex select-none py-4 pr-0.5 lg:px-2 xl:px-4 2xl:px-4">
       <Image
         className="rounded-full border border-gray"
         src={contact.image}
