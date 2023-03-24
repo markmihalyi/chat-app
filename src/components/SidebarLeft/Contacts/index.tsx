@@ -19,7 +19,7 @@ const Contacts: React.FC = () => {
   React.useEffect(() => {
     const rows: Array<ReactNode> = [];
     for (let i = 0; i < contactCount; i++) {
-      rows.push(<CardSkeleton />);
+      rows.push(<CardSkeleton key={i} />);
     }
     setRows(rows);
   }, [contactCount]);
