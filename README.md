@@ -1,4 +1,4 @@
-[<div align="center">
+<div align="center">
 
   <img src="public/logos/logo.png" alt="logo" width="auto" height="70" />
 
@@ -197,4 +197,3 @@ Márk Mihályi - [LinkedIn](https://www.linkedin.com/in/markmihalyi/) - mail@mar
 ## :gem: Acknowledgements
 
 This project was built with [Create T3 App](https://create.t3.gg/).
-](https://img.shields.io/github/forks/markmihalyi/chat-app)
