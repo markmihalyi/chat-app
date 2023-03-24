@@ -1,4 +1,4 @@
-<div align="center">
+[<div align="center">
 
   <img src="public/logos/logo.png" alt="logo" width="auto" height="70" />
 
@@ -14,7 +14,9 @@
   <a href="https://github.com/markmihalyi/chat-app/graphs/contributors">
     <img src="https://img.shields.io/github/contributors/markmihalyi/chat-app" alt="contributors" />
   </a>
-  <img src="https://img.shields.io/github/last-commit/markmihalyi/chat-app" alt="last update" />
+  <a href="https://github.com/markmihalyi/chat-app/commits/main">
+    <img src="https://img.shields.io/github/last-commit/markmihalyi/chat-app" alt="last update" />
+  </a>
   <a href="https://github.com/markmihalyi/chat-app/network/members">
     <img src="https://img.shields.io/github/forks/markmihalyi/chat-app" alt="forks" />
   </a>
@@ -195,3 +197,4 @@ Márk Mihályi - [LinkedIn](https://www.linkedin.com/in/markmihalyi/) - mail@mar
 ## :gem: Acknowledgements
 
 This project was built with [Create T3 App](https://create.t3.gg/).
+](https://img.shields.io/github/forks/markmihalyi/chat-app)
