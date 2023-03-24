@@ -18,66 +18,66 @@ const Chat: React.FC = () => {
   const { selectedContact } = useContacts();
 
   const [messages, setMessages] = React.useState<Array<ChatMessage>>([
-    {
-      text: "Lorem ipsum dolor sit amet",
-      date: new Date(2021, 8, 1, 1, 8),
-      type: "own",
-    },
-    {
-      text: "Lorem ipsum dolor sit amet",
-      date: new Date(2021, 8, 1, 1, 7),
-      type: "contact",
-    },
-    {
-      text: "Lorem ipsum dolor sit amet",
-      date: new Date(2021, 8, 1, 1, 7),
-      type: "own",
-    },
-    {
-      text: "Lorem ipsum dolor sit amet",
-      date: new Date(2021, 8, 1, 1, 6),
-      type: "contact",
-    },
-    {
-      text: "Lorem ipsum dolor sit amet",
-      date: new Date(2021, 8, 1, 1, 5),
-      type: "own",
-    },
-    {
-      text: "Lorem ipsum dolor sit amet",
-      date: new Date(2021, 8, 1, 1, 5),
-      type: "contact",
-    },
-    {
-      text: "Lorem ipsum dolor sit amet",
-      date: new Date(2021, 8, 1, 1, 8),
-      type: "own",
-    },
-    {
-      text: "Lorem ipsum dolor sit amet",
-      date: new Date(2021, 8, 1, 1, 7),
-      type: "contact",
-    },
-    {
-      text: "Lorem ipsum dolor sit amet",
-      date: new Date(2021, 8, 1, 1, 7),
-      type: "own",
-    },
-    {
-      text: "Lorem ipsum dolor sit amet",
-      date: new Date(2021, 8, 1, 1, 6),
-      type: "contact",
-    },
-    {
-      text: "Lorem ipsum dolor sit amet",
-      date: new Date(2021, 8, 1, 1, 5),
-      type: "own",
-    },
-    {
-      text: "Lorem ipsum dolor sit amet",
-      date: new Date(2021, 8, 1, 1, 5),
-      type: "contact",
-    },
+    // {
+    //   text: "Lorem ipsum dolor sit amet",
+    //   date: new Date(2021, 8, 1, 1, 8),
+    //   type: "own",
+    // },
+    // {
+    //   text: "Lorem ipsum dolor sit amet",
+    //   date: new Date(2021, 8, 1, 1, 7),
+    //   type: "contact",
+    // },
+    // {
+    //   text: "Lorem ipsum dolor sit amet",
+    //   date: new Date(2021, 8, 1, 1, 7),
+    //   type: "own",
+    // },
+    // {
+    //   text: "Lorem ipsum dolor sit amet",
+    //   date: new Date(2021, 8, 1, 1, 6),
+    //   type: "contact",
+    // },
+    // {
+    //   text: "Lorem ipsum dolor sit amet",
+    //   date: new Date(2021, 8, 1, 1, 5),
+    //   type: "own",
+    // },
+    // {
+    //   text: "Lorem ipsum dolor sit amet",
+    //   date: new Date(2021, 8, 1, 1, 5),
+    //   type: "contact",
+    // },
+    // {
+    //   text: "Lorem ipsum dolor sit amet",
+    //   date: new Date(2021, 8, 1, 1, 8),
+    //   type: "own",
+    // },
+    // {
+    //   text: "Lorem ipsum dolor sit amet",
+    //   date: new Date(2021, 8, 1, 1, 7),
+    //   type: "contact",
+    // },
+    // {
+    //   text: "Lorem ipsum dolor sit amet",
+    //   date: new Date(2021, 8, 1, 1, 7),
+    //   type: "own",
+    // },
+    // {
+    //   text: "Lorem ipsum dolor sit amet",
+    //   date: new Date(2021, 8, 1, 1, 6),
+    //   type: "contact",
+    // },
+    // {
+    //   text: "Lorem ipsum dolor sit amet",
+    //   date: new Date(2021, 8, 1, 1, 5),
+    //   type: "own",
+    // },
+    // {
+    //   text: "Lorem ipsum dolor sit amet",
+    //   date: new Date(2021, 8, 1, 1, 5),
+    //   type: "contact",
+    // },
   ]);
 
   const [showMenu, setShowMenu] = React.useState(false);
