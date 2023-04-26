@@ -10,6 +10,7 @@
   
   
 <!-- Badges -->
+<!--
 <p>
   <a href="https://github.com/markmihalyi/chat-app/graphs/contributors">
     <img src="https://img.shields.io/github/contributors/markmihalyi/chat-app" alt="contributors" />
@@ -30,13 +31,16 @@
     <img src="https://img.shields.io/github/license/markmihalyi/chat-app.svg" alt="license" />
   </a>
 </p>
+-->
    
 <h4>
     <a href="https://chatapp.markmihalyi.com" target="_blank">View Demo</a>
+    <!--
   <span> · </span>
     <a href="https://github.com/markmihalyi/chat-app/issues/">Report Bug</a>
   <span> · </span>
     <a href="https://github.com/markmihalyi/chat-app/issues/">Request Feature</a>
+    -->
   </h4>
 </div>
 
