@@ -34,7 +34,7 @@
 -->
    
 <h4>
-    <a href="https://chatapp.markmihalyi.com" target="_blank">View Demo</a>
+    <!--<a href="https://chatapp.markmihalyi.com" target="_blank">View Demo</a>-->
     <!--
   <span> · </span>
     <a href="https://github.com/markmihalyi/chat-app/issues/">Report Bug</a>
