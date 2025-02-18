@@ -194,7 +194,7 @@ Distributed under the MIT license. Read the LICENSE file for more information.
 
 ## :handshake: Contact
 
-Márk Mihályi - [LinkedIn](https://www.linkedin.com/in/markmihalyi/) - mail@markmihalyi.com
+Márk Mihályi - [LinkedIn](https://www.linkedin.com/in/markmihalyi/) - mail@markmihalyi.hu
 
 <!-- Acknowledgments -->
 
