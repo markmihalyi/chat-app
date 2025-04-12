@@ -29,15 +29,15 @@ const ContactCard: React.FC<Props> = ({ contact, selected, setSelectedContact })
     >
       <Image
         className="rounded-full border border-gray"
-        src={contact?.image || "/icons/DefaultUser.png"}
+        src={contact.image || "/icons/DefaultUser.png"}
         width={40}
         height={40}
         alt="PFP"
         draggable={false}
       />
       <div className="ml-2 mr-2 flex flex-col items-start justify-center">
-        <span className="text-sm font-semibold">{contact?.name}</span>
-        <span className="text-xs text-secondary">na és család megvan?</span>
+        <span className="text-sm font-semibold">{contact.name}</span>
+        <span className="text-xs text-secondary">Helló.</span> {/* TODO: fetch last message */}
       </div>
       <span className="ml-auto text-xs text-secondary">08:34 PM</span>
     </div>
