@@ -1,9 +1,9 @@
-import type { Contact } from "common/providers/ContactProvider/types";
-import React from "react";
-import SocketEvents from "common/providers/SocketProvider/types";
 import axios from "axios";
-import { useSession } from "next-auth/react";
 import useSocket from "common/hooks/useSocket";
+import type { Contact } from "common/providers/ContactProvider/types";
+import SocketEvents from "common/providers/SocketProvider/types";
+import { useSession } from "next-auth/react";
+import React from "react";
 
 export type ContactContextType = {
   contacts: Array<Contact> | null;
@@ -32,7 +32,6 @@ const ContactContextProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [selectedContact, setSelectedContact] = React.useState<Contact>({
     id: "",
     name: "",
-    username: "",
     image: "",
   });
 
@@ -40,7 +39,6 @@ const ContactContextProvider: React.FC<{ children: React.ReactNode }> = ({ child
     setSelectedContact({
       id: "",
       name: "",
-      username: "",
       image: "",
     });
   };

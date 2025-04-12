@@ -1,16 +1,16 @@
-import CardSkeleton from "./CardSkeleton";
-import type { Contact } from "common/providers/ContactProvider/types";
-import ContactCard from "./ContactCard";
-import Loading from "./Loading";
-import React from "react";
-import type { ReactNode } from "react";
-import RequestsButton from "./Requests/RequestsButton";
-import SearchBar from "./SearchBar";
-import SocketEvents from "common/providers/SocketProvider/types";
-import UserCard from "./UserCard";
 import axios from "axios";
 import useContacts from "common/hooks/useContacts";
 import useSocket from "common/hooks/useSocket";
+import type { Contact } from "common/providers/ContactProvider/types";
+import SocketEvents from "common/providers/SocketProvider/types";
+import type { ReactNode } from "react";
+import React from "react";
+import CardSkeleton from "./CardSkeleton";
+import ContactCard from "./ContactCard";
+import Loading from "./Loading";
+import RequestsButton from "./Requests/RequestsButton";
+import SearchBar from "./SearchBar";
+import UserCard from "./UserCard";
 
 const Contacts: React.FC = () => {
   const [rows, setRows] = React.useState<Array<ReactNode>>([]);
@@ -50,7 +50,7 @@ const Contacts: React.FC = () => {
     if (socket) {
       socket.on(SocketEvents.FRIEND_REMOVED, () => {
         updateContacts();
-        setSelectedContact({ id: "", name: "", username: "", image: "" });
+        setSelectedContact({ id: "", name: "", image: "" });
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

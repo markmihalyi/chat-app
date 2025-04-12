@@ -31,44 +31,6 @@ export const authOptions: NextAuthOptions = {
     async signIn({ user }) {
       if (!user?.email) return false;
 
-      const userData = await prisma.user.findFirst({
-        where: { email: user.email },
-      });
-
-      // Ha nincs ilyen felhasználó, akkor hozza létre
-      if (!userData) return true;
-
-      // Ha még nincs felhasználóneve, akkor generál egyet
-      if (!userData?.username) {
-        let usernameIndex = 0;
-
-        while (true) {
-          let username = "";
-          username += userData?.name
-            .toLowerCase()
-            .normalize("NFD")
-            .replace(" ", "")
-            .replace(/[\u0300-\u036f]/g, "");
-
-          if (usernameIndex > 0) {
-            username += usernameIndex;
-          }
-
-          const usernameExists = await prisma.user.findFirst({
-            where: { username },
-          });
-          if (!usernameExists) {
-            await prisma.user.update({
-              where: { id: user?.id },
-              data: { username },
-            });
-            break;
-          }
-
-          usernameIndex++;
-        }
-      }
-
       return true;
     },
     async session({ session, user }) {
@@ -78,7 +40,6 @@ export const authOptions: NextAuthOptions = {
           select: {
             id: true,
             name: true,
-            username: true,
             email: true,
             image: true,
             bio: true,
@@ -92,7 +53,6 @@ export const authOptions: NextAuthOptions = {
         const sessionUser = {
           id: userData.id,
           name: userData.name,
-          username: userData.username,
           email: userData.email,
           image: userData.image,
           bio: userData.bio,

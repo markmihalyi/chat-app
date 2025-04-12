@@ -1,5 +1,5 @@
-import type { ChatMessage } from "components/Chat";
 import type { Contact } from "common/providers/ContactProvider/types";
+import type { ChatMessage } from "components/Chat";
 import Image from "next/image";
 import React from "react";
 
@@ -35,6 +35,7 @@ const Message: React.FC<Props> = ({ selectedContact, message }) => {
         width={40}
         height={40}
         alt="Profilkép"
+        draggable={false}
       />
       <div className="flex flex-col items-start">
         <div className="rounded-2xl bg-[#eef1f4]">

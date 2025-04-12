@@ -1,11 +1,11 @@
 import { Dialog, Transition } from "@headlessui/react";
 
-import Image from "next/image";
-import React from "react";
-import SocketEvents from "common/providers/SocketProvider/types";
 import axios from "axios";
 import useContacts from "common/hooks/useContacts";
 import useSocket from "common/hooks/useSocket";
+import SocketEvents from "common/providers/SocketProvider/types";
+import Image from "next/image";
+import React from "react";
 
 type Props = {
   contactId: string;
@@ -24,7 +24,7 @@ const DeleteDialog: React.FC<Props> = ({ contactId, show, setShow }) => {
       setLoading(true);
       await axios.put("/api/v1/contacts/delete", { contactId });
       socket?.emit(SocketEvents.REMOVE_FRIEND, contactId);
-      setSelectedContact({ id: "", name: "", username: "", image: "" });
+      setSelectedContact({ id: "", name: "", image: "" });
       setShow(false);
     } catch (err) {
       console.log(err);

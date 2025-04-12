@@ -1,9 +1,9 @@
 import AcceptButton from "components/SidebarLeft/Contacts/Requests/RequestsDialog/Tabs/Buttons/AcceptButton";
 import DeclineButton from "components/SidebarLeft/Contacts/Requests/RequestsDialog/Tabs/Buttons/DeclineButton";
+import UnsendButton from "components/SidebarLeft/Contacts/Requests/RequestsDialog/Tabs/Buttons/UnsendButton";
+import type { RequestingUser } from "components/SidebarLeft/Contacts/Requests/RequestsDialog/Tabs/IncomingTab";
 import Image from "next/image";
 import React from "react";
-import type { RequestingUser } from "components/SidebarLeft/Contacts/Requests/RequestsDialog/Tabs/IncomingTab";
-import UnsendButton from "components/SidebarLeft/Contacts/Requests/RequestsDialog/Tabs/Buttons/UnsendButton";
 
 type Props = {
   type: "incoming" | "outgoing";
@@ -18,7 +18,7 @@ const RequestCard: React.FC<Props> = ({ type, user, updateRequests }) => {
     if (user.name.length > 20) {
       user.name = user.name.substring(0, 20) + "...";
     }
-    if (user.bio.length > 30) {
+    if (user.bio?.length > 30) {
       user.bio = user.bio.substring(0, 30) + "...";
     }
   }, [user]);

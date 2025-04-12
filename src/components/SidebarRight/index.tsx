@@ -1,7 +1,7 @@
+import useContacts from "common/hooks/useContacts";
 import DeleteDialog from "components/SidebarRight/DeleteDialog";
 import Image from "next/image";
 import React from "react";
-import useContacts from "common/hooks/useContacts";
 
 const SidebarRight: React.FC = () => {
   const { selectedContact } = useContacts();
@@ -42,12 +42,8 @@ const SidebarRight: React.FC = () => {
 
       <div className="flex flex-col space-y-4">
         <div className="flex flex-col">
-          <span className="select-none text-sm font-semibold">Username</span>
-          <span className="text-sm font-light">@{selectedContact.username}</span>
-        </div>
-        <div className="flex flex-col">
           <span className="select-none text-sm font-semibold">Bio</span>
-          <span className="text-sm font-light">{selectedContact.bio}</span>
+          <span className="text-sm font-light">{selectedContact.bio || "n/a"}</span>
         </div>
       </div>
 
