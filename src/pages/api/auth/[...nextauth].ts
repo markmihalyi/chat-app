@@ -29,43 +29,44 @@ export const authOptions: NextAuthOptions = {
   // Include user.id on session
   callbacks: {
     async signIn({ user }) {
-      if (!user) return false;
+      if (!user?.email) return false;
 
       const userData = await prisma.user.findFirst({
-        where: { id: user?.id },
+        where: { email: user.email },
       });
-      if (!userData) return false;
 
-      // Ha már van felhasználóneve, akkor nem kell generálni
-      if (userData?.username) return true;
+      // Ha nincs ilyen felhasználó, akkor hozza létre
+      if (!userData) return true;
 
       // Ha még nincs felhasználóneve, akkor generál egyet
-      let usernameIndex = 0;
+      if (!userData?.username) {
+        let usernameIndex = 0;
 
-      while (true) {
-        let username = "";
-        username += userData?.name
-          .toLowerCase()
-          .normalize("NFD")
-          .replace(" ", "")
-          .replace(/[\u0300-\u036f]/g, "");
+        while (true) {
+          let username = "";
+          username += userData?.name
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(" ", "")
+            .replace(/[\u0300-\u036f]/g, "");
 
-        if (usernameIndex > 0) {
-          username += usernameIndex;
-        }
+          if (usernameIndex > 0) {
+            username += usernameIndex;
+          }
 
-        const usernameExists = await prisma.user.findFirst({
-          where: { username },
-        });
-        if (!usernameExists) {
-          await prisma.user.update({
-            where: { id: user?.id },
-            data: { username },
+          const usernameExists = await prisma.user.findFirst({
+            where: { username },
           });
-          break;
-        }
+          if (!usernameExists) {
+            await prisma.user.update({
+              where: { id: user?.id },
+              data: { username },
+            });
+            break;
+          }
 
-        usernameIndex++;
+          usernameIndex++;
+        }
       }
 
       return true;
