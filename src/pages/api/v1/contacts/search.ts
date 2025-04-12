@@ -45,7 +45,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       },
     });
 
-    const users = usersData.map((user) => {
+    const users = usersData.filter((user) => {
       if (reqUser.id !== user.id && !reqUser.incomingRequests.includes(user.id)) {
         const alreadySentRequest = reqUser.outgoingRequests.includes(user.id);
         return { ...user, alreadySentRequest };
